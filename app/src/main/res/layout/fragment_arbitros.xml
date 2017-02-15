@@ -1,0 +1,21 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".FragmentArbitros"
+    android:background="?attr/colorControlHighlight">
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="ACA VAN LOS DATOS DE CADA OPCIÓN MENÚ... je je..."
+        android:id="@+id/lv_contenido_principal"
+        android:layout_gravity="center_horizontal"
+        android:textStyle="bold|italic"
+        android:typeface="serif"
+        android:background="#d3e8f2"
+        android:textColor="#691515" />
+
+</FrameLayout>

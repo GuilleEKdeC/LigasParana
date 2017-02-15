@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minHeight="?attr/listPreferredItemHeight"
+    tools:text="Texto de Prueba en el Item"
+    android:layout_marginLeft="20dp"
+    tools:ignore="RtlHardcoded"
+    android:weightSum="1">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="89dp"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <!--.....Nombre de la Liga/Categoría.....-->
+        <TextView
+            android:id="@+id/tv_descripcion"
+            android:text="Liga de Veteranos "
+            android:layout_height="match_parent"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:layout_width="264dp"
+            android:textAlignment="center"/><!--
+
+        <!-.....Logo de la Liga/Categoría......-->
+        <ImageView
+            android:id="@+id/iv_logo"
+            android:padding="2dip"
+            android:layout_height="wrap_content"
+            android:src="@drawable/logoliga1"
+            android:layout_marginLeft="8dp"
+            android:layout_width="match_parent"
+            android:visibility="visible"
+            android:textAlignment="gravity"
+            android:layout_gravity="left"
+            android:adjustViewBounds="false"
+            tools:layout_gravity="start"
+            android:contentDescription="" />
+
+    </LinearLayout>
+</LinearLayout>
+
+
+

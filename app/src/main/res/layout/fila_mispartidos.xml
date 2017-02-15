@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="85dp"
+        android:layout_height="80dp"
+        app:srcCompat="@drawable/mas35"
+        android:id="@+id/iv_liga" />
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="1">
+
+        <TextView
+            android:text="CATEGORIA"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_categoria" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="297dp"
+            android:layout_height="55dp"
+            android:layout_weight="0.02">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="225dp"
+                android:layout_height="match_parent">
+
+
+                <TextView
+                    android:text="Equipo_a vs Equipo_b"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_equipos" />
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:text="Fecha"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_fecha"
+                        android:layout_weight="0.04" />
+
+                    <TextView
+                        android:text="Lugar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_lugar"
+                        android:layout_weight="0.04" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <CheckBox
+                android:text="Notificaciones"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/cb_notificar"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>
