@@ -70,7 +70,6 @@ public class ActividadCategoria extends AppCompatActivity{
 
                 intentDatosCategoria.putExtra("nombreLiga",nombreLiga);
                 intentDatosCategoria.putExtra("nombreCategoria","CATEGORIA XXX");
-
                 /*No puedo hacer andar esto*/
                 intentDatosCategoria.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);//Cortar la pila de actividades
 
