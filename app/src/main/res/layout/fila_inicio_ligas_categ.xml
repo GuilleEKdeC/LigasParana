@@ -30,8 +30,8 @@
         <ImageView
             android:id="@+id/iv_logo"
             android:padding="2dip"
-            android:layout_height="wrap_content"
-            android:src="@drawable/logoliga1"
+            android:layout_height="match_parent"
+            android:src="@drawable/mas34"
             android:layout_marginLeft="8dp"
             android:layout_width="match_parent"
             android:visibility="visible"

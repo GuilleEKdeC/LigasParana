@@ -4,6 +4,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 
 import android.provider.Settings;
+import android.provider.SyncStateContract;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
@@ -32,6 +33,8 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
     private ProyectoDAO proyectoDAO;
     private Cursor cursor;
     private MisPartidosCursorAdapter tca;
+    private long mLastPress = 0;	// Cuándo se pulsó atrás por última vez
+    private long mTimeLimit = 2000;	// Límite de tiempo entre pulsaciones, en ms
 
     /*------------------------------------- ON CREATE --------------------------------------------*/
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +51,7 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
 
 
         //Tabs + ViewPager
-        Toolbar toolbarFrag = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbarFrag = (Toolbar) findViewById(R.id.appbar);
         setSupportActionBar(toolbarFrag);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
@@ -159,7 +162,6 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
 
         //Si selecciono CONFIGURACION
         if (id == R.id.action_settings) {
-            Toast.makeText(getBaseContext(), "Clickee CONFIGURACION", Toast.LENGTH_LONG).show();
             startActivity(new Intent(ActividadPrincipal.this,Opciones.class));
             return true;
         }
@@ -171,8 +173,8 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
             return true;
         }
         //Si selecciono SALIR
-        if (id == R.id.salir) {
-            Toast.makeText(getBaseContext(), "Clickee SALIR", Toast.LENGTH_LONG).show();
+        if (id == R.id.Acerca_de) {
+            Toast.makeText(getBaseContext(), "Clickee Acerca de", Toast.LENGTH_LONG).show();
             this.finish();
             return true;
         }
@@ -187,23 +189,26 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         switch (id){
-            case R.id.nav_deptos:
-                Toast.makeText(getBaseContext(), "Clickee DEPARTAMENTOS", Toast.LENGTH_LONG).show();
+            case R.id.nav_liga:
+                Toast.makeText(getBaseContext(), "Clickee Liga", Toast.LENGTH_LONG).show();
                 //    Intent i1 = new Intent(MainActivity.this,ListaDepartamentosActivity.class);
                 //  i1.putExtra("esBusqueda",false );
                 //startActivity(i1);
                 break;
-            case R.id.nav_ofertas:
-                Toast.makeText(getBaseContext(), "Clickee OFERTAS", Toast.LENGTH_LONG).show();
+            case R.id.nav_Categoria:
+                Toast.makeText(getBaseContext(), "Clickee Categoria", Toast.LENGTH_LONG).show();
                 break;
-            case R.id.nav_destinos:
-                Toast.makeText(getBaseContext(), "Clickee DESTINOS", Toast.LENGTH_LONG).show();
+            case R.id.nav_equipo:
+                Toast.makeText(getBaseContext(), "Clickee Equipo", Toast.LENGTH_LONG).show();
                 break;
-            case R.id.nav_reservas:
-
+            case R.id.nav_misPartidos:
+                break;
+            case R.id.nav_opinion:
+                Toast.makeText(getBaseContext(), "Clickee Opinión", Toast.LENGTH_LONG).show();
                 break;
             case R.id.nav_perfil:
-                Toast.makeText(getBaseContext(), "Clickee PERFIL", Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(), "Clickee Perfil", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(ActividadPrincipal.this,Opciones.class));
                 break;
 
         }
@@ -214,12 +219,29 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
 
     /*---------------------- on Back Pressed (botón retroceso del celular)------------------------*/
     //Al presionar el botón de volver atras del celular, lo primero que hace es cerrar el Navegador si estaba abierto
-    public void onBackPressed() {
+  /*public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
+        }
+    }*/
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+
+            if (mLastPress>mTimeLimit) {
+                super.onBackPressed();
+                return;
+            } else {
+                Toast.makeText(this,"Presiona nuevamente para salir", Toast.LENGTH_SHORT).show();
+            }
+            mLastPress = System.currentTimeMillis();
         }
     }
 }

@@ -46,10 +46,10 @@ public class Categoria {
 /*--------------------------Vector con las ligas de nuestra APP------------------------------*/
     public static final Categoria[] CATEGORIAS_MOCK= new Categoria[]{
 
-            new Categoria(1,"Maxi",R.drawable.logoliga1),
-            new Categoria(2,"Senior",R.drawable.logoliga1),
-            new Categoria(3,"Master",R.drawable.logoliga1),
-            new Categoria(4,"Super Master",R.drawable.logoliga1),
-            new Categoria(5,"Super Maxi",R.drawable.logoliga1)
-            };
+        new Categoria(1,"Senior",R.drawable.mas34),
+        new Categoria(2,"Maxi",R.drawable.mas40),
+        new Categoria(3,"Super Maxi",R.drawable.mas46),
+        new Categoria(4,"Master",R.drawable.mas55),
+        new Categoria(5,"Super Master",R.drawable.mas55)
+    };
 }

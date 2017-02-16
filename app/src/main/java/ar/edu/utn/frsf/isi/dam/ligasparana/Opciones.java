@@ -9,6 +9,7 @@ package ar.edu.utn.frsf.isi.dam.ligasparana;
         import android.preference.Preference;
         import android.preference.PreferenceActivity;
         import android.preference.PreferenceManager;
+        import android.preference.RingtonePreference;
         import android.widget.Toast;
 
 public class Opciones extends PreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
@@ -35,7 +36,6 @@ public class Opciones extends PreferenceActivity implements SharedPreferences.On
 
         if (key.equals("check_box_preference_1")) {
             /*NO ESTA ANDANDO como yo quiero. Si se tilda este check se tendria que habilitar ELEGIR ringtone*/
-            Toast.makeText(getApplicationContext(), "NO CUMPLE LA FUNCION QUE QUIERO AUN", Toast.LENGTH_SHORT).show();
         }
             /*SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
             if (prefs.getString("check_box_preference_1", "false").equals("true")) {

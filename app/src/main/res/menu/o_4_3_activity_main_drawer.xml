@@ -9,30 +9,34 @@
     y se agrupan por una etiqueta <group> para mantener el control sobre la selección.-->
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_deptos"
+            android:id="@+id/nav_liga"
             android:icon="@drawable/dice1"
-            android:title="Departamentos" />
+            android:title="Liga" />
         <item
-            android:id="@+id/nav_ofertas"
+            android:id="@+id/nav_Categoria"
             android:icon="@drawable/dice2"
-            android:title="Ofertas" />
+            android:title="Categoría" />
         <item
-            android:id="@+id/nav_destinos"
+            android:id="@+id/nav_equipo"
             android:icon="@drawable/dice3"
-            android:title="Destinos" />
+            android:title="Equipo" />
+        <item
+            android:id="@+id/nav_misPartidos"
+            android:icon="@drawable/dice4"
+            android:title="Mis Partidos" />
     </group>
 
     <!-- Se usa un menú anidado para crear una división visible entre los elementos -->
     <item android:title="Usuario">
         <menu>
             <item
-                android:id="@+id/nav_reservas"
+                android:id="@+id/nav_opinion"
                 android:icon="@drawable/morevertical"
-                android:title="Reservas" />
+                android:title="Tu Opinión" />
             <item
                 android:id="@+id/nav_perfil"
-                android:icon="@drawable/puntosverticales"
-                android:title="Perfil" />
+                android:icon="@drawable/lapiz"
+                android:title="Perfíl" />
         </menu>
     </item>
 

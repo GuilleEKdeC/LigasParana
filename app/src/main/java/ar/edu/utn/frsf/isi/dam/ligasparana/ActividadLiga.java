@@ -53,13 +53,14 @@ Toast.makeText(this, "Seleccionar una Liga", Toast.LENGTH_SHORT).show();
         listVw.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getApplicationContext(), "Seleccionaste algooo", Toast.LENGTH_SHORT).show();
+
                 intActCat= new Intent(ActividadLiga.this,ActividadCategoria.class);
                 intActCat.putExtra("nombreLiga","LIGA YYY");
 
                 //Se notifica al adaptador de que el ArrayList que tiene asociado ha sufrido cambios (forzando asi mas35 ir al metodo getView())
                 /*adaptador.notifyDataSetChanged();*/
-                startActivity(intActCat);
+                finish();
+                startActivity(intActCat.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP));
             }
         });
 

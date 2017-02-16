@@ -75,6 +75,7 @@ public class ActividadCategoria extends AppCompatActivity{
 
                 //Se notifica al adaptador de que el ArrayList que tiene asociado ha sufrido cambios (forzando asi mas35 ir al metodo getView())
                 /*adaptador.notifyDataSetChanged();*/
+                finish();
                 startActivity(intentDatosCategoria);
             }
         });
