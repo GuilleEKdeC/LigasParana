@@ -1,3 +1,0 @@
-1- ver lo de que se vean los iconos adecuadamente ya se vert u hor en los distintos dispositivos
-2- ver de que pase directo a la actividad ppal cuando ya haya seteado liga y categoría
-3- buscar y aplicar los iconos correspondientes a las categorías
