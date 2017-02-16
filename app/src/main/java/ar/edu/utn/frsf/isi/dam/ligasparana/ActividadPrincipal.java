@@ -175,7 +175,6 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
         //Si selecciono SALIR
         if (id == R.id.Acerca_de) {
             Toast.makeText(getBaseContext(), "Clickee Acerca de", Toast.LENGTH_LONG).show();
-            this.finish();
             return true;
         }
         return super.onOptionsItemSelected(item);
