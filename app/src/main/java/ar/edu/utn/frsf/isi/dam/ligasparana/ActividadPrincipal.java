@@ -51,7 +51,7 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
 
 
         //Tabs + ViewPager
-        Toolbar toolbarFrag = (Toolbar) findViewById(R.id.appbar);
+        Toolbar toolbarFrag = (Toolbar) findViewById(R.id.appbar); //toolbar
         setSupportActionBar(toolbarFrag);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
@@ -92,7 +92,7 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
         View header=navigationView.getHeaderView(0);
 
         //Crea el listView con Mis Partidos
-        lvPartidos = (ListView) findViewById(R.id.lv_contenido_principal); //lvPartidos es el listView que se encuentra en el content_main
+        //lvPartidos = (ListView) findViewById(R.id.lv_contenido_principal); //lvPartidos es el listView que se encuentra en el content_main
     }//Fin ON CREATE
 
 

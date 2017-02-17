@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/lv_contenido_principal"
+        android:id="@+id/lv_equipos"
         android:layout_gravity="center_horizontal"
         android:textStyle="bold|italic"
         android:typeface="serif"

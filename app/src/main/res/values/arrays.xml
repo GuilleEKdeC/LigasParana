@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="fechas_senior">
+        <item>Fecha 1</item>
+        <item>Fecha 2</item>
+        <item>Fecha 3</item>
+        <item>Fecha 4</item>
+        <item>Fecha 5</item>
+        <item>Fecha 6</item>
+        <item>Fecha 7</item>
+        <item>Fecha 8</item>
+        <item>Fecha 9</item>
+        <item>Fecha 10</item>
+        <item>Fecha 11</item>
+        <item>Fecha 12</item>
+    </string-array>
+
+    <string-array name="fechas_maxi">
+        <item>Fecha 1</item>
+        <item>Fecha 2</item>
+        <item>Fecha 3</item>
+        <item>Fecha 4</item>
+        <item>Fecha 5</item>
+        <item>Fecha 6</item>
+        <item>Fecha 7</item>
+        <item>Fecha 8</item>
+    </string-array>
+
+    <string-array name="fechas_superMaxi">
+        <item>Fecha 1</item>
+        <item>Fecha 2</item>
+        <item>Fecha 3</item>
+        <item>Fecha 4</item>
+        <item>Fecha 5</item>
+        <item>Fecha 6</item>
+        <item>Fecha 7</item>
+        <item>Fecha 8</item>
+    </string-array>
+
+    <string-array name="fechas_master">
+        <item>Fecha 1</item>
+        <item>Fecha 2</item>
+        <item>Fecha 3</item>
+        <item>Fecha 4</item>
+        <item>Fecha 5</item>
+        <item>Fecha 6</item>
+        <item>Fecha 7</item>
+        <item>Fecha 8</item>
+        <item>Fecha 9</item>
+        <item>Fecha 10</item>
+    </string-array>
+
+    <string-array name="fechas_superMaster">
+        <item>Fecha 1</item>
+        <item>Fecha 2</item>
+        <item>Fecha 3</item>
+        <item>Fecha 4</item>
+        <item>Fecha 5</item>
+        <item>Fecha 6</item>
+        <item>Fecha 7</item>
+        <item>Fecha 8</item>
+        <item>Fecha 9</item>
+        <item>Fecha 10</item>
+        <item>Fecha 11</item>
+        <item>Fecha 12</item>
+    </string-array>
+</resources>

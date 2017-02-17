@@ -6,23 +6,22 @@ import android.support.v4.app.FragmentPagerAdapter;
 public class MiFragmentPagerAdapter extends FragmentPagerAdapter {
 
     final int PAGE_COUNT = 9;
+
     private String tabTitles[] =
             new String[] { "Equipos", "Fechas", "Resultados", "Posiciones", "Goleadores", "Arbitros", "Torneos Anteriores", "Novedades", "Contacto"};
 
-    public MiFragmentPagerAdapter(FragmentManager fm) {
+    public MiFragmentPagerAdapter(FragmentManager fm){
         super(fm);
     }
 
     @Override
-    public int getCount() {
+    public int getCount(){
         return PAGE_COUNT;
     }
 
     @Override
     public Fragment getItem(int position) {
-
         Fragment f = null;
-
         switch(position) {
             case 0:
                 f = FragmentEquipos.newInstance();
