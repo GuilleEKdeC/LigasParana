@@ -1,8 +1,13 @@
 package ar.edu.utn.frsf.isi.dam.ligasparana;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 
+import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.provider.SyncStateContract;
 import android.support.design.widget.NavigationView;
@@ -20,8 +25,10 @@ import android.view.Menu;
 
 
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import ar.edu.utn.frsf.isi.dam.ligasparana.Modelo.Usuario;
 import ar.edu.utn.frsf.isi.dam.ligasparana.dao.ProyectoDAO;
 
 public class ActividadPrincipal extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -35,6 +42,12 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
     private MisPartidosCursorAdapter tca;
     private long mLastPress = 0;	// Cuándo se pulsó atrás por última vez
     private long mTimeLimit = 2000;	// Límite de tiempo entre pulsaciones, en ms
+    private String nombreUsuario;
+    private String correoUsuario;
+    private String nameRingtone;
+    private Usuario usuario;
+    private TextView textUsuario;
+    private TextView textEmail;
 
     /*------------------------------------- ON CREATE --------------------------------------------*/
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +61,20 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
         Toast.makeText(this, nombreLiga + " --- " + nombreCategoria, Toast.LENGTH_SHORT).show();*/
         // Integer id = Integer.valueOf(categoria.getStringExtra("ID_Liga"));
         // Fin manejo del Intent
+
+        /*Captura de los valores seteados en la actividad OpcionesActivity que extiende de PreferenceActivity*/ // AGREGADO
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        String strRingtonePreference = prefs.getString("ringtonePref", "DEFAULT_RINGTONE_URI");
+        nombreUsuario = prefs.getString("nombre_usuario","");
+        correoUsuario = prefs.getString("email_usuario","");
+        Uri ringtoneUri = Uri.parse(strRingtonePreference);
+
+        /*Muestro que tengo cargado el Ringston que eligio en Configuraciones...*/ // AGREGADO
+        Ringtone ringtone = RingtoneManager.getRingtone(getBaseContext(), ringtoneUri);
+        nameRingtone = ringtone.getTitle(getBaseContext());
+
+        /*Creamos el usuario*/
+        usuario = new Usuario(nombreUsuario,correoUsuario,ringtoneUri);//Linea AGREGADA
 
 
         //Tabs + ViewPager
@@ -91,6 +118,11 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
         navigationView.setNavigationItemSelectedListener(this); //le setea un listener
         View header=navigationView.getHeaderView(0);
 
+        textUsuario = (TextView)header.findViewById(R.id.textView1);
+        textEmail = (TextView)header.findViewById(R.id.textView2);
+        textUsuario.setText(nombreUsuario);
+        textEmail.setText(correoUsuario);
+
         //Crea el listView con Mis Partidos
         //lvPartidos = (ListView) findViewById(R.id.lv_contenido_principal); //lvPartidos es el listView que se encuentra en el content_main
     }//Fin ON CREATE
@@ -103,14 +135,35 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
 
 
     /*-------------------------------------- On Resume -------------------------------------------*/
-  /*  protected void onResume() {
+    protected void onResume() {
         super.onResume();
         //Toast.makeText(getBaseContext(), "OnResume...", Toast.LENGTH_SHORT).show();
 
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        String strRingtonePreference = prefs.getString("ringtonePref", "DEFAULT_RINGTONE_URI");
+        nombreUsuario = prefs.getString("nombre_usuario","");
+        correoUsuario = prefs.getString("email_usuario","");
+        Uri ringtoneUri = Uri.parse(strRingtonePreference);
+
+        /*Muestro que tengo cargado el Ringston que eligio en Configuraciones...*/ // AGREGADO
+          Ringtone ringtone = RingtoneManager.getRingtone(getBaseContext(), ringtoneUri);
+          nameRingtone = ringtone.getTitle(getBaseContext());
+       //Toast.makeText(getBaseContext(), "Configuración cargada para nombre "+nombreUsuario+", correo: "+correoUsuario+", ringston: "+nameRingtone , Toast.LENGTH_SHORT).show();
+
+        /*Seteamos Datos del usuario*/
+        usuario.setNombre(nombreUsuario);
+        usuario.setCorreo(correoUsuario);
+
+
         /*Seteo nuevamente los datos del usuario, por si se cambio las configuraciones*/
-  /*      NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view); //Crea una nueva variable NavigationView, tomando como referencia la definida en activity_main.xml.
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view); //Crea una nueva variable NavigationView, tomando como referencia la definida en activity_main.xml.
         navigationView.setNavigationItemSelectedListener(this); //le setea un listener
         View header=navigationView.getHeaderView(0);
+
+         textUsuario = (TextView)header.findViewById(R.id.textView1);
+        textEmail = (TextView)header.findViewById(R.id.textView2);
+        textUsuario.setText(nombreUsuario);
+        textEmail.setText(correoUsuario);
 
   /*      // manejo de sqlite
        Log.d("TPFinal-MAIN","en onResume");
@@ -123,7 +176,7 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
         lvPartidos.setAdapter(tca);
         Log.d("TPFinal-MAIN","fin onResume");
         // fin manejo sqlite
-
+*/
     }
 
     /*-------------------------------------- On Pause --------------------------------------------*/
@@ -216,18 +269,7 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
         return true;//Devuelve TRUE en caso de que fue usado y FALSO en caso contrario
     }
 
-    /*---------------------- on Back Pressed (botón retroceso del celular)------------------------*/
-    //Al presionar el botón de volver atras del celular, lo primero que hace es cerrar el Navegador si estaba abierto
-  /*public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }*/
-
-    @Override
+       @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
