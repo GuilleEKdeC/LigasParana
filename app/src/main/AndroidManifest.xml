@@ -31,7 +31,8 @@
             android:name=".ActividadPrincipal"
             android:label="Actividad Principal"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".Opciones" />
+        <activity android:name=".Opciones" ></activity>
+        <activity android:name=".ActividadMisPartidos"></activity>
 
     </application>
 

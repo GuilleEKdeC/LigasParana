@@ -10,21 +10,15 @@ public class ProyectoDBMetadata {
     public static final String NOMBRE_DB= "tpfinal.db";
 
     public static final String TABLA_MISPARTIDOS= "MISPARTIDOS";
-    public static final String TABLA_MISPARTIDOS_ALIAS= " mp";
+    public static final String TABLA_MISPARTIDOS_ALIAS= "mp";
 
-    public static class TablaMisPartidosMetadata implements BaseColumns {/*Son todos tipo TEXT*/
-        public static final String LIGA ="LIGA";
-        public static final String CATEGORIA ="CATEGORIA";
+    public static class TablaMisPartidosMetadata implements BaseColumns {
+        public static final String LIGA = "LIGA";
+        public static final String CATEGORIA = "CATEGORIA";
         public static final String EQUIPO1 ="EQUIPO1";
         public static final String EQUIPO2 ="EQUIPO2";
         public static final String FECHA ="FECHA";  /*formato "YYYY-MM-DD HH:MM:SS.SSS".*/
         public static final String LUGAR ="LUGAR";
-        public static final String NOTIFICAR ="NOTIFICAR";
+        public static final String NOTIFICAR = "NOTIFICAR";
     }
-
-    public static class TablaPrioridadMetadata implements BaseColumns {
-        public static final String PRIORIDAD ="TITULO";
-        public static final String PRIORIDAD_ALIAS ="NOMBRE_PRIORIDAD";
-    }
-
 }

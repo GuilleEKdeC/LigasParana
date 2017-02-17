@@ -22,24 +22,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.Menu;
-
-
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import ar.edu.utn.frsf.isi.dam.ligasparana.Modelo.Usuario;
-import ar.edu.utn.frsf.isi.dam.ligasparana.dao.ProyectoDAO;
 
 public class ActividadPrincipal extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
    /* private Intent intentDatosCategoria;
     private String nombreLiga;
     private String nombreCategoria;*/
-    private ListView lvPartidos;
-    private ProyectoDAO proyectoDAO;
     private Cursor cursor;
-    private MisPartidosCursorAdapter tca;
     private long mLastPress = 0;	// Cuándo se pulsó atrás por última vez
     private long mTimeLimit = 2000;	// Límite de tiempo entre pulsaciones, en ms
     private String nombreUsuario;
@@ -165,36 +158,6 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
         textUsuario.setText(nombreUsuario);
         textEmail.setText(correoUsuario);
 
-  /*      // manejo de sqlite
-       Log.d("TPFinal-MAIN","en onResume");
-        proyectoDAO = new ProyectoDAO(ActividadPrincipal.this);
-        proyectoDAO.open();
-      /*   cursor = proyectoDAO.listaTareas(1);
-        Log.d("TPFinal-MAIN","mediol "+cursor.getCount());
-*/
- /*       tca = new MisPartidosCursorAdapter(ActividadPrincipal.this,cursor,proyectoDAO);
-        lvPartidos.setAdapter(tca);
-        Log.d("TPFinal-MAIN","fin onResume");
-        // fin manejo sqlite
-*/
-    }
-
-    /*-------------------------------------- On Pause --------------------------------------------*/
- /*   protected void onPause() {
-        super.onPause();
-        Log.d("TPFinal-MAIN","on pausa");
-
-        if(cursor!=null) cursor.close();
-        if(proyectoDAO!=null) proyectoDAO.close();
-        Log.d("TPFinal-MAIN","fin on pausa");
-
-    }
-   */
-
-    /*-------------------------------------- On Start --------------------------------------------*/
-    protected void onStart() {
-        super.onStart();
-        //Toast.makeText(getBaseContext(), "OnStart...", Toast.LENGTH_SHORT).show();
     }
 
     /* Inflar el menu*/
@@ -254,6 +217,10 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
                 Toast.makeText(getBaseContext(), "Clickee Equipo", Toast.LENGTH_LONG).show();
                 break;
             case R.id.nav_misPartidos:
+                Toast.makeText(getBaseContext(), "Clickee MisPartidos", Toast.LENGTH_LONG).show();
+                Intent imP = new Intent(ActividadPrincipal.this,ActividadMisPartidos.class);
+                //  i1.putExtra("esBusqueda",false );
+                startActivity(imP);
                 break;
             case R.id.nav_opinion:
                 Toast.makeText(getBaseContext(), "Clickee Opinión", Toast.LENGTH_LONG).show();
