@@ -11,6 +11,7 @@ import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.provider.SyncStateContract;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
@@ -22,24 +23,23 @@ import android.view.MenuItem;
 import android.view.View;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.Menu;
-
-
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import ar.edu.utn.frsf.isi.dam.ligasparana.Modelo.Usuario;
 import ar.edu.utn.frsf.isi.dam.ligasparana.dao.ProyectoDAO;
+import ar.edu.utn.frsf.isi.dam.ligasparana.dao.ProyectoDBMetadata;
 
 public class ActividadPrincipal extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-   /* private Intent intentDatosCategoria;
-    private String nombreLiga;
-    private String nombreCategoria;*/
-    private ListView lvPartidos;
+
     private ProyectoDAO proyectoDAO;
+    private Intent bienvenida;
+    private Intent ligas;
+    private Intent intentDatosCategoria;
+    private Integer idLiga;
+    private Integer idCategoria;
     private Cursor cursor;
-    private MisPartidosCursorAdapter tca;
     private long mLastPress = 0;	// Cuándo se pulsó atrás por última vez
     private long mTimeLimit = 2000;	// Límite de tiempo entre pulsaciones, en ms
     private String nombreUsuario;
@@ -54,13 +54,24 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.o_4_actividad_principal);
 
-        // Manejo del Intent
-      /* intentDatosCategoria = getIntent();
-        nombreLiga = intentDatosCategoria.getStringExtra("nombreLiga");
-        nombreCategoria = intentDatosCategoria.getStringExtra("nombreCategoria");
-        Toast.makeText(this, nombreLiga + " --- " + nombreCategoria, Toast.LENGTH_SHORT).show();*/
-        // Integer id = Integer.valueOf(categoria.getStringExtra("ID_Liga"));
-        // Fin manejo del Intent
+        //  manejo de sqlite para controlar la existencia de las elecciones de LIGA y CATEGORÍA ----
+        proyectoDAO = new ProyectoDAO(ActividadPrincipal.this);
+        proyectoDAO.open();
+        cursor = proyectoDAO.listaPreferencias();
+        if(cursor.moveToFirst()){   //si hay filas en el cursor
+            if(cursor.getInt(cursor.getColumnIndex(ProyectoDBMetadata.TablaMisPreferenciasMetadata.LIGA)) == 0){            // Si aún no se eligió LIGA
+                Intent mainIntent = new Intent().setClass(ActividadPrincipal.this, ActividadLiga.class);                    // Comenzar la actividad de seleccionar LIGA
+                startActivity(mainIntent);
+            }
+            if(cursor.getInt(cursor.getColumnIndex(ProyectoDBMetadata.TablaMisPreferenciasMetadata.CATEGORIA)) == 0){       // Si aún no se eligió CATEGORÏA
+                Intent intActCat= new Intent(ActividadPrincipal.this,ActividadCategoria.class);                             // Comenzar la actividad de seleccionar CATEGORÍA
+                startActivity(intActCat.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP));
+            }
+        }
+        else{
+           // Toast.makeText(getBaseContext(), "VACIO", Toast.LENGTH_LONG).show();
+        }
+        // fin manejo sqlite -----------------------------------------------------------------------
 
         /*Captura de los valores seteados en la actividad OpcionesActivity que extiende de PreferenceActivity*/ // AGREGADO
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
@@ -69,13 +80,12 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
         correoUsuario = prefs.getString("email_usuario","");
         Uri ringtoneUri = Uri.parse(strRingtonePreference);
 
-        /*Muestro que tengo cargado el Ringston que eligio en Configuraciones...*/ // AGREGADO
+        /*Muestro que tengo cargado el Ringtone que eligió en Configuraciones...*/ // AGREGADO
         Ringtone ringtone = RingtoneManager.getRingtone(getBaseContext(), ringtoneUri);
         nameRingtone = ringtone.getTitle(getBaseContext());
 
         /*Creamos el usuario*/
         usuario = new Usuario(nombreUsuario,correoUsuario,ringtoneUri);//Linea AGREGADA
-
 
         //Tabs + ViewPager
         Toolbar toolbarFrag = (Toolbar) findViewById(R.id.appbar); //toolbar
@@ -127,17 +137,9 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
         //lvPartidos = (ListView) findViewById(R.id.lv_contenido_principal); //lvPartidos es el listView que se encuentra en el content_main
     }//Fin ON CREATE
 
-
-
-
-
-
-
-
     /*-------------------------------------- On Resume -------------------------------------------*/
     protected void onResume() {
         super.onResume();
-        //Toast.makeText(getBaseContext(), "OnResume...", Toast.LENGTH_SHORT).show();
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         String strRingtonePreference = prefs.getString("ringtonePref", "DEFAULT_RINGTONE_URI");
@@ -160,41 +162,10 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
         navigationView.setNavigationItemSelectedListener(this); //le setea un listener
         View header=navigationView.getHeaderView(0);
 
-         textUsuario = (TextView)header.findViewById(R.id.textView1);
+        textUsuario = (TextView)header.findViewById(R.id.textView1);
         textEmail = (TextView)header.findViewById(R.id.textView2);
         textUsuario.setText(nombreUsuario);
         textEmail.setText(correoUsuario);
-
-  /*      // manejo de sqlite
-       Log.d("TPFinal-MAIN","en onResume");
-        proyectoDAO = new ProyectoDAO(ActividadPrincipal.this);
-        proyectoDAO.open();
-      /*   cursor = proyectoDAO.listaTareas(1);
-        Log.d("TPFinal-MAIN","mediol "+cursor.getCount());
-*/
- /*       tca = new MisPartidosCursorAdapter(ActividadPrincipal.this,cursor,proyectoDAO);
-        lvPartidos.setAdapter(tca);
-        Log.d("TPFinal-MAIN","fin onResume");
-        // fin manejo sqlite
-*/
-    }
-
-    /*-------------------------------------- On Pause --------------------------------------------*/
- /*   protected void onPause() {
-        super.onPause();
-        Log.d("TPFinal-MAIN","on pausa");
-
-        if(cursor!=null) cursor.close();
-        if(proyectoDAO!=null) proyectoDAO.close();
-        Log.d("TPFinal-MAIN","fin on pausa");
-
-    }
-   */
-
-    /*-------------------------------------- On Start --------------------------------------------*/
-    protected void onStart() {
-        super.onStart();
-        //Toast.makeText(getBaseContext(), "OnStart...", Toast.LENGTH_SHORT).show();
     }
 
     /* Inflar el menu*/
@@ -242,18 +213,21 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
         int id = item.getItemId();
         switch (id){
             case R.id.nav_liga:
-                Toast.makeText(getBaseContext(), "Clickee Liga", Toast.LENGTH_LONG).show();
-                //    Intent i1 = new Intent(MainActivity.this,ListaDepartamentosActivity.class);
-                //  i1.putExtra("esBusqueda",false );
-                //startActivity(i1);
+                Intent mainIntent = new Intent().setClass(ActividadPrincipal.this, ActividadLiga.class);                    // Comenzar la actividad de seleccionar LIGA
+                startActivity(mainIntent);
                 break;
             case R.id.nav_Categoria:
-                Toast.makeText(getBaseContext(), "Clickee Categoria", Toast.LENGTH_LONG).show();
+                Intent intActCat= new Intent(ActividadPrincipal.this,ActividadCategoria.class);                             // Comenzar la actividad de seleccionar CATEGORÍA
+                startActivity(intActCat.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP));
                 break;
             case R.id.nav_equipo:
                 Toast.makeText(getBaseContext(), "Clickee Equipo", Toast.LENGTH_LONG).show();
                 break;
             case R.id.nav_misPartidos:
+                Toast.makeText(getBaseContext(), "Clickee MisPartidos", Toast.LENGTH_LONG).show();
+                Intent imP = new Intent(ActividadPrincipal.this,ActividadMisPartidos.class);
+                //  i1.putExtra("esBusqueda",false );
+                startActivity(imP);
                 break;
             case R.id.nav_opinion:
                 Toast.makeText(getBaseContext(), "Clickee Opinión", Toast.LENGTH_LONG).show();
@@ -284,5 +258,12 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
             }
             mLastPress = System.currentTimeMillis();
         }
+    }
+
+      /*-------------------------------------- On Pause --------------------------------------------*/
+    protected void onPause() {
+        super.onPause();
+        if(cursor!=null) cursor.close();
+        if(proyectoDAO!=null) proyectoDAO.close();
     }
 }

@@ -2,6 +2,7 @@ package ar.edu.utn.frsf.isi.dam.ligasparana;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -12,6 +13,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import ar.edu.utn.frsf.isi.dam.ligasparana.Modelo.Categoria;
+import ar.edu.utn.frsf.isi.dam.ligasparana.dao.ProyectoDAO;
+import ar.edu.utn.frsf.isi.dam.ligasparana.dao.ProyectoDBMetadata;
 
 public class ActividadCategoria extends AppCompatActivity{
     /**********************************
@@ -24,7 +27,8 @@ public class ActividadCategoria extends AppCompatActivity{
     private Context contexto;
     private Intent intentCategoria;
     private Intent intentDatosCategoria;
-    private String nombreLiga;
+    private String idLiga;
+    private ProyectoDAO myDao;
 
 
     @Override
@@ -36,7 +40,7 @@ public class ActividadCategoria extends AppCompatActivity{
 
         // Manejo del Intent
         intentCategoria = getIntent();
-        nombreLiga = intentCategoria.getStringExtra("nombreLiga");
+        idLiga = intentCategoria.getStringExtra("idLiga");
 //Toast.makeText(this, nombreLiga, Toast.LENGTH_SHORT).show();
         // Integer id = Integer.valueOf(categoria.getStringExtra("ID_Liga"));
         // Fin manejo del Intent
@@ -58,29 +62,24 @@ public class ActividadCategoria extends AppCompatActivity{
         //Esto es mas que nada es mas35 nivel de diseño con el objetivo de crear unas lineas mas anchas entre item y item
         listVw.setDividerHeight(3);
 
- Toast.makeText(this, "Seleccionar una Categoría", Toast.LENGTH_SHORT).show();
-
+        Toast.makeText(this, "Seleccione su CATEGORÍA Favorita", Toast.LENGTH_LONG).show();
 
         /*----------------------------------------------------------------------------------------*/
         listVw.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                intentDatosCategoria= new Intent(ActividadCategoria.this,ActividadPrincipal.class);
+                myDao = new ProyectoDAO(ActividadCategoria.this);
+                myDao.open();
+                myDao.actualizarCategoria(String.valueOf(listaCategorias.get(position).getId()));
 
-                intentDatosCategoria.putExtra("nombreLiga",nombreLiga);
-                intentDatosCategoria.putExtra("nombreCategoria","CATEGORIA XXX");
-                /*No puedo hacer andar esto*/
-                intentDatosCategoria.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);//Cortar la pila de actividades
-
-                //Se notifica al adaptador de que el ArrayList que tiene asociado ha sufrido cambios (forzando asi mas35 ir al metodo getView())
-                /*adaptador.notifyDataSetChanged();*/
+                Cursor c = myDao.listaPreferencias();
+                if(c.moveToFirst()) {   //si hay filas en el cursor
+                   Toast.makeText(getBaseContext(), "Liga: "+c.getString(1)+" --- Categ: "+c.getString(2), Toast.LENGTH_LONG).show();
+                }
                 finish();
-                startActivity(intentDatosCategoria);
             }
         });
-
-        //finish();
 
     }//Fin-On Create
 

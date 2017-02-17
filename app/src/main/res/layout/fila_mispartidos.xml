@@ -2,72 +2,89 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
     <ImageView
-        android:layout_width="85dp"
-        android:layout_height="80dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:srcCompat="@drawable/mas34"
         android:id="@+id/iv_liga" />
 
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="335dp"
+        android:layout_height="50dp"
         android:weightSum="1">
 
         <TextView
             android:text="CATEGORIA"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tv_categoria" />
+            android:layout_height="20dp"
+            android:id="@+id/tv_categoria"
+            android:textSize="18sp"
+            android:textStyle="normal|bold"
+            android:elevation="10dp"
+            android:gravity="center_horizontal" />
 
         <LinearLayout
             android:orientation="horizontal"
-            android:layout_width="297dp"
-            android:layout_height="55dp"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
             android:layout_weight="0.02">
 
             <LinearLayout
                 android:orientation="vertical"
-                android:layout_width="225dp"
+                android:layout_width="270dp"
                 android:layout_height="match_parent">
 
 
                 <TextView
                     android:text="Equipo_a vs Equipo_b"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tv_equipos" />
+                    android:layout_height="15dp"
+                    android:id="@+id/tv_equipos"
+                    android:textSize="12sp"
+                    android:textStyle="italic"
+                    android:gravity="center_horizontal" />
 
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="15dp">
 
                     <TextView
                         android:text="Fecha"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="135dp"
+                        android:layout_height="15dp"
                         android:id="@+id/tv_fecha"
-                        android:layout_weight="0.04" />
+                        android:layout_weight="0.04"
+                        android:textSize="10sp"
+                        android:textStyle="italic"
+                        android:gravity="center_horizontal" />
 
                     <TextView
                         android:text="Lugar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="135dp"
+                        android:layout_height="15dp"
                         android:id="@+id/tv_lugar"
-                        android:layout_weight="0.04" />
+                        android:layout_weight="0.04"
+                        android:textSize="10sp"
+                        android:textStyle="italic"
+                        android:gravity="center_horizontal" />
                 </LinearLayout>
             </LinearLayout>
 
             <CheckBox
                 android:text="Notificaciones"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:id="@+id/cb_notificar"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:textSize="8sp"
+                android:textStyle="italic"
+                android:visibility="visible" />
         </LinearLayout>
 
     </LinearLayout>

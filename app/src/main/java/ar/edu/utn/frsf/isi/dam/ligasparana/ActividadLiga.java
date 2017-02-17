@@ -2,6 +2,7 @@ package ar.edu.utn.frsf.isi.dam.ligasparana;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,8 +11,11 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 import ar.edu.utn.frsf.isi.dam.ligasparana.Modelo.Liga;
+import ar.edu.utn.frsf.isi.dam.ligasparana.dao.ProyectoDAO;
+import ar.edu.utn.frsf.isi.dam.ligasparana.dao.ProyectoDBMetadata;
 
 public class ActividadLiga extends AppCompatActivity {
     /**********************************
@@ -23,6 +27,7 @@ public class ActividadLiga extends AppCompatActivity {
     private AdaptadorDeLigas adaptador;
     private Context contexto;
     private Intent intActCat;
+    private ProyectoDAO myDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,20 +52,21 @@ public class ActividadLiga extends AppCompatActivity {
         //Esto es mas que nada es mas35 nivel de diseño con el objetivo de crear unas lineas mas anchas entre item y item
         listVw.setDividerHeight(3);
 
-Toast.makeText(this, "Seleccionar una Liga", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Seleccione su LIGA Favorita", Toast.LENGTH_LONG).show();
 
         /*----------------------------------------------------------------------------------------*/
         listVw.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                intActCat= new Intent(ActividadLiga.this,ActividadCategoria.class);
-                intActCat.putExtra("nombreLiga","LIGA YYY");
-
-                //Se notifica al adaptador de que el ArrayList que tiene asociado ha sufrido cambios (forzando asi mas35 ir al metodo getView())
-                /*adaptador.notifyDataSetChanged();*/
+                myDao = new ProyectoDAO(ActividadLiga.this);
+                myDao.open();
+                myDao.actualizarLiga(String.valueOf(listaLigas.get(position).getId()));
+                Cursor c = myDao.listaPreferencias();
+                if(c.moveToFirst()) {   //si hay filas en el cursor
+                    Toast.makeText(getBaseContext(), "Liga: "+c.getString(1)+" --- Categ: "+c.getString(2), Toast.LENGTH_LONG).show();
+                }
                 finish();
-                startActivity(intActCat.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP));
             }
         });
 

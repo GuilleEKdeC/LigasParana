@@ -33,7 +33,7 @@ public class ActividadPantallaBienvenida extends Activity {
                         ActividadPantallaBienvenida.this, ActividadLiga.class);
                 startActivity(mainIntent);
 
-                // Cierre la actividad por lo que el usuario no será capaz de volver mas35 esta actividad pulsando el botón Atrás
+                // Cierre la actividad por lo que el usuario no será capaz de volver a esta actividad pulsando el botón Atrás
                 finish();
             }
         };

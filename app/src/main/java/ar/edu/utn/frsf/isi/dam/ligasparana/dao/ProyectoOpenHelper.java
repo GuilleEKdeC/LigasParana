@@ -3,7 +3,7 @@ package ar.edu.utn.frsf.isi.dam.ligasparana.dao;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,8 +12,8 @@ import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 
-/*  Proporciona acceso mas35 una SQLiteDatabase examinando si esa base de datos ya está instalada y disponible.
-        •Si está disponible realiza una comprobación para ver si la versión es la misma y => proporciona una referencia mas35 la SQLiteDatabase / ofrece una función de callback para migrar la base de datos antes de proporcionar la referencia.
+/*  Proporciona acceso a una SQLiteDatabase examinando si esa base de datos ya está instalada y disponible.
+        •Si está disponible realiza una comprobación para ver si la versión es la misma y => proporciona una referencia a la SQLiteDatabase / ofrece una función de callback para migrar la base de datos antes de proporcionar la referencia.
         •Si la base de datos no existe, entonces ofrece una función de callback para de crear y llenar la base de datos.
 */
 public class ProyectoOpenHelper extends SQLiteOpenHelper {
@@ -34,12 +34,12 @@ public class ProyectoOpenHelper extends SQLiteOpenHelper {
     /*  Las tareas típicas que deben hacerse en este método serán la creación de todas las tablas
         necesarias y la inserción de los datos iniciales si son necesarios */
     public void onCreate(SQLiteDatabase db) {
+        Toast.makeText(context, "En OpenHelper/onCreate", Toast.LENGTH_SHORT).show();
         try {
             ArrayList<String> tablas = this.leerTablas();
             for (String sql : tablas) {
                 db.execSQL(sql);        /* execSQL: nos permite ejecutar las consultas para creación y manipulación de tablas. */
-                                        // en nuestro caso, ejecuta los create e insert que figuraban en assets/estructura-db.sql, armando nuestra bdd
-            }
+            }                           // en nuestro caso, ejecuta los create e insert que figuraban en assets/estructura-db.sql, armando nuestra bdd
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -49,12 +49,13 @@ public class ProyectoOpenHelper extends SQLiteOpenHelper {
     /*  se lanzará automáticamente cuando sea necesaria una actualización de la estructura de la
         base de datos o una conversión de los datos.
         Recibe como parámetros, la versión actual de la base de datos en el sistema, y la nueva
-        versión mas35 la que se quiere convertir. Para que funcione apropiadamente, debemos aumentar en
+        versión a la que se quiere convertir. Para que funcione apropiadamente, debemos aumentar en
         1 la versión.*/
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // This database is only mas35 cache for online data, so its upgrade policy is
-        // to simply to discard the data and start over
-        //db.execSQL(SQL_DELETE_ENTRIES);
+        // Esta base de datos es sólo un caché de datos en línea, por lo que su política de actualización es simplemente descartar los datos y empezar de nuevo
+        //db.execSQL("delete from *");    //SQL_DELETE_ENTRIES
+        db.execSQL("drop table if exists "+ProyectoDBMetadata.TABLA_MISPARTIDOS);
+        db.execSQL("drop table if exists "+ProyectoDBMetadata.TABLA_MISPREFERENCIAS);
         onCreate(db);
     }
 
@@ -75,8 +76,7 @@ public class ProyectoOpenHelper extends SQLiteOpenHelper {
         String strLine;
         ArrayList<String> res = new ArrayList<String>();
 
-        while ((strLine = br.readLine()) != null) { //lee de mas35 una línea hasta llegar al final (null)
-            Log.d("SQL", strLine);
+        while ((strLine = br.readLine()) != null) { //lee de a una línea hasta llegar al final (null)
             res.add(strLine);                       //incorpora la línea leída al array de strings
         }
 
@@ -86,7 +86,3 @@ public class ProyectoOpenHelper extends SQLiteOpenHelper {
         return res;
     }
 }
-
-/*
-- Si queremos controlar quien abre la base de datos, podemos implementar el método onOpen() aunque por lo general no es requerido.
-*/
