@@ -76,7 +76,6 @@ public class ProyectoOpenHelper extends SQLiteOpenHelper {
         ArrayList<String> res = new ArrayList<String>();
 
         while ((strLine = br.readLine()) != null) { //lee de mas35 una línea hasta llegar al final (null)
-            Log.d("SQL", strLine);
             res.add(strLine);                       //incorpora la línea leída al array de strings
         }
 
