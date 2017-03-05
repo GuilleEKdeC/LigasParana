@@ -1,18 +1,23 @@
 package ar.edu.utn.frsf.isi.dam.ligasparana;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CursorAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import android.widget.Toast;
+import android.widget.ToggleButton;
+import org.w3c.dom.Text;
 import ar.edu.utn.frsf.isi.dam.ligasparana.Modelo.Categoria;
 import ar.edu.utn.frsf.isi.dam.ligasparana.Modelo.Liga;
 import ar.edu.utn.frsf.isi.dam.ligasparana.dao.ProyectoDAO;

@@ -34,7 +34,6 @@ public class ProyectoOpenHelper extends SQLiteOpenHelper {
     /*  Las tareas típicas que deben hacerse en este método serán la creación de todas las tablas
         necesarias y la inserción de los datos iniciales si son necesarios */
     public void onCreate(SQLiteDatabase db) {
-        Toast.makeText(context, "En OpenHelper/onCreate", Toast.LENGTH_SHORT).show();
         try {
             ArrayList<String> tablas = this.leerTablas();
             for (String sql : tablas) {
@@ -76,7 +75,8 @@ public class ProyectoOpenHelper extends SQLiteOpenHelper {
         String strLine;
         ArrayList<String> res = new ArrayList<String>();
 
-        while ((strLine = br.readLine()) != null) { //lee de a una línea hasta llegar al final (null)
+        while ((strLine = br.readLine()) != null) { //lee de mas35 una línea hasta llegar al final (null)
+            Log.d("SQL", strLine);
             res.add(strLine);                       //incorpora la línea leída al array de strings
         }
 
@@ -86,3 +86,7 @@ public class ProyectoOpenHelper extends SQLiteOpenHelper {
         return res;
     }
 }
+
+/*
+- Si queremos controlar quien abre la base de datos, podemos implementar el método onOpen() aunque por lo general no es requerido.
+*/
