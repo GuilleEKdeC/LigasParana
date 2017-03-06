@@ -48,11 +48,18 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
     private Usuario usuario;
     private TextView textUsuario;
     private TextView textEmail;
+    private ViewPager viewPager;
+    private MiFragmentPagerAdapter fadapter;
 
     /*------------------------------------- ON CREATE --------------------------------------------*/
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.o_4_actividad_principal);
+
+        //Establecer el PageAdapter del componente ViewPager
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        fadapter = new MiFragmentPagerAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(fadapter);
 
         //  manejo de sqlite para controlar la existencia de las elecciones de LIGA y CATEGORÍA ----
         proyectoDAO = new ProyectoDAO(ActividadPrincipal.this);
@@ -62,10 +69,12 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
             if(cursor.getInt(cursor.getColumnIndex(ProyectoDBMetadata.TablaMisPreferenciasMetadata.LIGA)) == 0){            // Si aún no se eligió LIGA
                 Intent mainIntent = new Intent().setClass(ActividadPrincipal.this, ActividadLiga.class);                    // Comenzar la actividad de seleccionar LIGA
                 startActivity(mainIntent);
+                fadapter.notifyDataSetChanged();
             }
             if(cursor.getInt(cursor.getColumnIndex(ProyectoDBMetadata.TablaMisPreferenciasMetadata.CATEGORIA)) == 0){       // Si aún no se eligió CATEGORÏA
                 Intent intActCat= new Intent(ActividadPrincipal.this,ActividadCategoria.class);                             // Comenzar la actividad de seleccionar CATEGORÍA
                 startActivity(intActCat.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP));
+                fadapter.notifyDataSetChanged();
             }
         }
         else{
@@ -94,8 +103,9 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
 
         //Establecer el PageAdapter del componente ViewPager
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
-        viewPager.setAdapter(new MiFragmentPagerAdapter(
-                getSupportFragmentManager()));
+        fadapter = new MiFragmentPagerAdapter(getSupportFragmentManager());
+       // viewPager.setAdapter(new MiFragmentPagerAdapter(getSupportFragmentManager()));
+        viewPager.setAdapter(fadapter);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.appbartabs);
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
@@ -108,13 +118,13 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
                 getSupportActionBar().setTitle("Después de cerrar el Navegador (ManiActivity)");//cambia el título mas35 la toolbar
-                invalidateOptionsMenu(); //indica mas35 Android que los contenidos del menú han cambiado y que el menú debe ser redibujado. Crea una llamada al método onPrepareOptionsMenú
+                invalidateOptionsMenu(); //indica a Android que los contenidos del menú han cambiado y que el menú debe ser redibujado. Crea una llamada al método onPrepareOptionsMenú
             }
 
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
                 getSupportActionBar().setTitle("Antes de abrir el Navegador (ManiActivity)"); //cambia el título mas35 la toolbar
-                invalidateOptionsMenu(); //indica mas35 Android que los contenidos del menú han cambiado y que el menú debe ser redibujado. Crea una llamada al método onPrepareOptionsMenú
+                invalidateOptionsMenu(); //indica a Android que los contenidos del menú han cambiado y que el menú debe ser redibujado. Crea una llamada al método onPrepareOptionsMenú
             }
             /****************Fin de Agregado****************/
         };
@@ -226,7 +236,6 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
             case R.id.nav_misPartidos:
                 Toast.makeText(getBaseContext(), "Clickee MisPartidos", Toast.LENGTH_LONG).show();
                 Intent imP = new Intent(ActividadPrincipal.this,ActividadMisPartidos.class);
-                //  i1.putExtra("esBusqueda",false );
                 startActivity(imP);
                 break;
             case R.id.nav_opinion:

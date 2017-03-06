@@ -19,15 +19,37 @@
             android:minWidth="20dp"
             android:id="@+id/spiner_fechas" />
 
-        <ListView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="35dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.56"
+                android:text="dd/mm/aa" />
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.42"
+                android:gravity="center"
+                android:text="Categoría: " />
+        </LinearLayout>
+
+        <ListView
             android:id="@+id/lv_fechas"
+            android:layout_width="match_parent"
+            android:layout_height="421dp"
             android:layout_gravity="center_horizontal"
-            android:textStyle="bold|italic"
-            android:typeface="serif"
             android:background="#d3e8f2"
-            android:textColor="#691515" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#691515"
+            android:textStyle="bold|italic"
+            android:typeface="serif" />
     </LinearLayout>
 </FrameLayout>

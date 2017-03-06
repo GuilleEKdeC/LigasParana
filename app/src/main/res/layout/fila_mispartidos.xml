@@ -29,6 +29,94 @@
             android:gravity="center_horizontal" />
 
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="208dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/tv_equipos"
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp"
+                    android:gravity="center_horizontal"
+                    android:text="Equipo_a vs Equipo_b"
+                    android:textSize="12sp"
+                    android:textStyle="italic" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_fecha"
+                        android:layout_width="135dp"
+                        android:layout_height="15dp"
+                        android:layout_weight="0.04"
+                        android:gravity="center_horizontal"
+                        android:text="Fecha"
+                        android:textSize="10sp"
+                        android:textStyle="italic" />
+
+                    <TextView
+                        android:id="@+id/tv_lugar"
+                        android:layout_width="120dp"
+                        android:layout_height="15dp"
+                        android:gravity="center_horizontal"
+                        android:text="Lugar"
+                        android:textSize="10sp"
+                        android:textStyle="italic" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <CheckBox
+                android:id="@+id/cb_notificar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Notificaciones"
+                android:textSize="8sp"
+                android:textStyle="italic"
+                android:visibility="visible" />
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>
+<!--<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:srcCompat="@drawable/mas34"
+        android:id="@+id/iv_liga" />
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="335dp"
+        android:layout_height="50dp"
+        android:weightSum="1">
+
+        <TextView
+            android:text="CATEGORIA"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:id="@+id/tv_categoria"
+            android:textSize="18sp"
+            android:textStyle="normal|bold"
+            android:elevation="10dp"
+            android:gravity="center_horizontal" />
+
+        <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="30dp"
@@ -88,4 +176,4 @@
         </LinearLayout>
 
     </LinearLayout>
-</LinearLayout>
+</LinearLayout> -->

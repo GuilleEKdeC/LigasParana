@@ -3,6 +3,7 @@ package ar.edu.utn.frsf.isi.dam.ligasparana.dao;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -179,6 +180,21 @@ public class ProyectoDAO {
 
         db.update(ProyectoDBMetadata.TABLA_MISPREFERENCIAS, valores, ProyectoDBMetadata.TABLA_MISPREFERENCIAS+"."+ProyectoDBMetadata.TablaMisPreferenciasMetadata._ID+" = ?", new String[]{idPref.toString()});
     }
+    /*-------------------------------------- get Categoria ---------------------------------------*/
+    public Integer getCategoría(){
+        Integer idCat = 0;
+        Cursor cursor = null;
+        cursor = db.rawQuery(_SQL_MISPREFERENCIAS,null);  //new String[]{idPry.toString()}
+        if(cursor.moveToFirst()){ idCat = cursor.getInt(2);}
+        return idCat;
+    }
 
-
+    /*----------------------------------------- get Liga -----------------------------------------*/
+    public Integer getLiga(){
+        Integer idLiga = 0;
+        Cursor cursor = null;
+        cursor = db.rawQuery(_SQL_MISPREFERENCIAS,null);  //new String[]{idPry.toString()}
+        if(cursor.moveToFirst()){ idLiga = cursor.getInt(1);}
+        return idLiga;
+    }
 }
