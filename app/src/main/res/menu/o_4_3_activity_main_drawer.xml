@@ -32,7 +32,7 @@
             <item
                 android:id="@+id/nav_localizar"
                 android:icon="@drawable/morevertical"
-                android:title="Tu Opinión" />
+                android:title="Localizar" />
             <item
                 android:id="@+id/nav_perfil"
                 android:icon="@drawable/lapiz"
