@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "986661835889",
+    "firebase_url": "https://ligas-parana.firebaseio.com",
+    "project_id": "ligas-parana",
+    "storage_bucket": "ligas-parana.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:986661835889:android:a62581915b59a606",
+        "android_client_info": {
+          "package_name": "ar.edu.utn.frsf.isi.dam.ligasparana"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "986661835889-65slq725u0mjg4hosjh0c9cbell9f3s3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAP_mfuMC4_B1ivqgi0zuoy5GQTiM6f0A4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

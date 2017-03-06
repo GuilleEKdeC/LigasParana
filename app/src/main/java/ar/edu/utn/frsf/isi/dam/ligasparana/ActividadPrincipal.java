@@ -42,14 +42,20 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
     private Cursor cursor;
     private long mLastPress = 0;	// Cuándo se pulsó atrás por última vez
     private long mTimeLimit = 2000;	// Límite de tiempo entre pulsaciones, en ms
-    private String nombreUsuario;
-    private String correoUsuario;
-    private String nameRingtone;
-    private Usuario usuario;
-    private TextView textUsuario;
-    private TextView textEmail;
     private ViewPager viewPager;
     private MiFragmentPagerAdapter fadapter;
+    private Usuario usuario;
+    private String nombreUsuario;
+    private String correoUsuario;
+    private TextView textUsuario;
+    private TextView textEmail;
+    private TextView textLigaSeleccionada;
+    private TextView textCategoriaSeleccionada;
+    private String noticiaPush;
+    private String usuarioPush;
+    private String tituloPush;
+    private String ligaSeleccionada;
+    private String categoriaSeleccionada;
 
     /*------------------------------------- ON CREATE --------------------------------------------*/
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,19 +88,27 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
         }
         // fin manejo sqlite -----------------------------------------------------------------------
 
-        /*Captura de los valores seteados en la actividad OpcionesActivity que extiende de PreferenceActivity*/ // AGREGADO
+        /*=========================================================================================*/
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-        String strRingtonePreference = prefs.getString("ringtonePref", "DEFAULT_RINGTONE_URI");
-        nombreUsuario = prefs.getString("nombre_usuario","");
-        correoUsuario = prefs.getString("email_usuario","");
-        Uri ringtoneUri = Uri.parse(strRingtonePreference);
+        if(getIntent().hasExtra("title") && getIntent().hasExtra("noticia") && getIntent().hasExtra("usuario")){
+            SharedPreferences.Editor editor = prefs.edit();
+            tituloPush = getIntent().getStringExtra("title");
+            noticiaPush = getIntent().getStringExtra("noticia");
+            usuarioPush = getIntent().getStringExtra("usuario");
 
-        /*Muestro que tengo cargado el Ringtone que eligió en Configuraciones...*/ // AGREGADO
-        Ringtone ringtone = RingtoneManager.getRingtone(getBaseContext(), ringtoneUri);
-        nameRingtone = ringtone.getTitle(getBaseContext());
+            editor.putString("title", tituloPush);
+            editor.putString("noticia", noticiaPush);
+            editor.putString("usuario", usuarioPush);
+            editor.commit();
+        }
 
-        /*Creamos el usuario*/
-        usuario = new Usuario(nombreUsuario,correoUsuario,ringtoneUri);//Linea AGREGADA
+        nombreUsuario = prefs.getString("nombre_usuario","USUARIO");
+        correoUsuario = prefs.getString("email_usuario","email@usuario.com");
+        ligaSeleccionada = "Liga de Veteranos";//setear con el valor de la BD de SQLite
+        categoriaSeleccionada = "Senior"; //setear con el valor de la BD de SQLite
+
+        usuario = new Usuario(nombreUsuario,correoUsuario); /*Creamos el usuario*/
+        /*=========================================================================================*/
 
         //Tabs + ViewPager
         Toolbar toolbarFrag = (Toolbar) findViewById(R.id.appbar); //toolbar
@@ -138,11 +152,17 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
         navigationView.setNavigationItemSelectedListener(this); //le setea un listener
         View header=navigationView.getHeaderView(0);
 
-        textUsuario = (TextView)header.findViewById(R.id.textView1);
-        textEmail = (TextView)header.findViewById(R.id.textView2);
+        textUsuario = (TextView)header.findViewById(R.id.textV_usuario);
+        textEmail = (TextView)header.findViewById(R.id.textV_correo);
+         /*=========================================================================================*/
+        textCategoriaSeleccionada = (TextView) header.findViewById(R.id.textV_categoria);
+        textLigaSeleccionada = (TextView) header.findViewById(R.id.textV_liga);
+
         textUsuario.setText(nombreUsuario);
         textEmail.setText(correoUsuario);
-
+        textCategoriaSeleccionada.setText(ligaSeleccionada);
+        textLigaSeleccionada.setText(categoriaSeleccionada);
+        /*=========================================================================================*/
         //Crea el listView con Mis Partidos
         //lvPartidos = (ListView) findViewById(R.id.lv_contenido_principal); //lvPartidos es el listView que se encuentra en el content_main
     }//Fin ON CREATE
@@ -152,31 +172,55 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
         super.onResume();
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-        String strRingtonePreference = prefs.getString("ringtonePref", "DEFAULT_RINGTONE_URI");
-        nombreUsuario = prefs.getString("nombre_usuario","");
-        correoUsuario = prefs.getString("email_usuario","");
-        Uri ringtoneUri = Uri.parse(strRingtonePreference);
+         /*=========================================================================================*/
+        if(getIntent().hasExtra("title") && getIntent().hasExtra("noticia") && getIntent().hasExtra("usuario")){
+            SharedPreferences.Editor editor = prefs.edit();
+            tituloPush = getIntent().getStringExtra("title");
+            noticiaPush = getIntent().getStringExtra("noticia");
+            usuarioPush = getIntent().getStringExtra("usuario");
 
-        /*Muestro que tengo cargado el Ringston que eligio en Configuraciones...*/ // AGREGADO
-          Ringtone ringtone = RingtoneManager.getRingtone(getBaseContext(), ringtoneUri);
-          nameRingtone = ringtone.getTitle(getBaseContext());
-       //Toast.makeText(getBaseContext(), "Configuración cargada para nombre "+nombreUsuario+", correo: "+correoUsuario+", ringston: "+nameRingtone , Toast.LENGTH_SHORT).show();
+            editor.putString("title", tituloPush);
+            editor.putString("noticia", noticiaPush);
+            editor.putString("usuario", usuarioPush);
+            editor.commit();
+        }
+
+        nombreUsuario = prefs.getString("nombre_usuario","USUARIO");
+        correoUsuario = prefs.getString("email_usuario","email@usuario.com");
+        ligaSeleccionada = "Liga de Veteranos";//setear con el valor de la BD de SQLite
+        categoriaSeleccionada = "Senior"; //setear con el valor de la BD de SQLite
 
         /*Seteamos Datos del usuario*/
         usuario.setNombre(nombreUsuario);
         usuario.setCorreo(correoUsuario);
-
+        usuario.setCorreo(ligaSeleccionada);
+        usuario.setCorreo(categoriaSeleccionada);
+        /*=========================================================================================*/
 
         /*Seteo nuevamente los datos del usuario, por si se cambio las configuraciones*/
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view); //Crea una nueva variable NavigationView, tomando como referencia la definida en activity_main.xml.
         navigationView.setNavigationItemSelectedListener(this); //le setea un listener
         View header=navigationView.getHeaderView(0);
 
-        textUsuario = (TextView)header.findViewById(R.id.textView1);
-        textEmail = (TextView)header.findViewById(R.id.textView2);
+        /*=========================================================================================*/
+        textUsuario = (TextView)header.findViewById(R.id.textV_usuario);
+        textEmail = (TextView)header.findViewById(R.id.textV_correo);
+        textLigaSeleccionada = (TextView)header.findViewById(R.id.textV_liga);
+        textCategoriaSeleccionada = (TextView)header.findViewById(R.id.textV_categoria);
+
         textUsuario.setText(nombreUsuario);
         textEmail.setText(correoUsuario);
+        textLigaSeleccionada.setText(ligaSeleccionada);
+        textCategoriaSeleccionada.setText(categoriaSeleccionada);
+        /*=========================================================================================*/
     }
+    /*=========================================================================================*/
+    private void enviarNotificacion(){
+        NoticiasReceiver activarAlarma = new NoticiasReceiver();
+        activarAlarma.sendRepeatingAlarm(ActividadPrincipal.this);
+        // finish();
+    }
+    /*=========================================================================================*/
 
     /* Inflar el menu*/
     /*--------------------------------- on Create Options Menu -----------------------------------*/
@@ -206,11 +250,14 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
             //  startActivity(new Intent(MainActivity.this,AyudaActivity.class));
             return true;
         }
-        //Si selecciono SALIR
+        /*=========================================================================================*/
+        //Si selecciono ACERCA DE
         if (id == R.id.Acerca_de) {
-            Toast.makeText(getBaseContext(), "Clickee Acerca de", Toast.LENGTH_LONG).show();
+            Toast.makeText(getBaseContext(), "Acerca de...", Toast.LENGTH_LONG).show();
+            enviarNotificacion(); //Esto lanza una notificacion con alarmManager
             return true;
         }
+        /*=========================================================================================*/
         return super.onOptionsItemSelected(item);
     }
 

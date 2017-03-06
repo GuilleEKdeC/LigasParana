@@ -34,18 +34,12 @@ public class Opciones extends PreferenceActivity implements SharedPreferences.On
             connectionPref.setSummary(sharedPref.getString(key, ""));
         }
 
-        if (key.equals("check_box_preference_1")) {
-            /*NO ESTA ANDANDO como yo quiero. Si se tilda este check se tendria que habilitar ELEGIR ringtone*/
-        }
-            /*SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-            if (prefs.getString("check_box_preference_1", "false").equals("true")) {
-                Toast.makeText(getBaseContext(), "estado TRUE", Toast.LENGTH_LONG).show();
-            }*/
-        if (key.equals("ringtone")) {
-            Toast.makeText(getApplicationContext(), "Deberia guardar el ringtone ", Toast.LENGTH_LONG).show();
+       /* ======================================================================================= */
+        if (key.equals("ringtone_1")) {
+            Toast.makeText(getApplicationContext(), "Ringtone guardado...", Toast.LENGTH_LONG).show();
 
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-            String strRingtonePreference = prefs.getString("ringtonePref", "DEFAULT_RINGTONE_URI");
+            String strRingtonePreference = prefs.getString("ringtone_1", "DEFAULT_RINGTONE_URI");
 
             Uri ringtoneUri = Uri.parse(strRingtonePreference);
             Ringtone ringtone = RingtoneManager.getRingtone(getBaseContext(), ringtoneUri);
@@ -54,6 +48,7 @@ public class Opciones extends PreferenceActivity implements SharedPreferences.On
             Preference connectionPref = findPreference(key);
             connectionPref.setSummary(name);
         }
+        /* ======================================================================================= */
     }
 
     protected void onResume() {

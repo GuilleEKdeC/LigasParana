@@ -18,40 +18,24 @@
     <PreferenceCategory android:title="Opciones de Notificación">
 
         <!-- RingtonePreference comienza deshabilitado, HABILITARLO al tildar el CheckBoxPreference -->
+        <!-- ======================================================================================= -->
         <CheckBoxPreference
             android:defaultValue="false"
-            android:title="Activar Notificación"
+            android:title="Seleccionar Rigntone"
             android:key="check_box_preference_1">
         </CheckBoxPreference>
+
         <RingtonePreference
             android:dependency="check_box_preference_1"
             android:defaultValue="defaultRingtone"
             android:key="ringtone_1"
-            android:title="Seleccionar Ringtone"
+            android:title="Tono para notificación"
             android:name="RingtonePreference"
             android:showSilent="false"
             android:ringtoneType="notification"
-            android:summary="Tono para notificaciones"
-            android:selectable="false">
+            android:summary="Tono de Notificación">
         </RingtonePreference>
-
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:title="Activar Música de fondo"
-            android:key="check_box_preference_2">
-        </CheckBoxPreference>
-
-        <RingtonePreference
-            android:dependency="check_box_preference_2"
-            android:defaultValue="defaultRingtone"
-            android:key="ringtone_2"
-            android:title="Seleccionar Ringtone"
-            android:name="RingtonePreference"
-            android:showSilent="false"
-            android:ringtoneType="notification"
-            android:summary="Tono de segundo plano">
-        </RingtonePreference>
-
+        <!-- ======================================================================================= -->
     </PreferenceCategory>
 
 </PreferenceScreen>
