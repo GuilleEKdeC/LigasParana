@@ -30,7 +30,7 @@
     <item android:title="Usuario">
         <menu>
             <item
-                android:id="@+id/nav_opinion"
+                android:id="@+id/nav_localizar"
                 android:icon="@drawable/morevertical"
                 android:title="Tu Opinión" />
             <item

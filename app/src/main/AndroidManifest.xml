@@ -51,6 +51,7 @@
         <activity android:name=".Opciones" ></activity>
         <activity android:name=".ActividadMisPartidos"></activity>
         <activity android:name=".ActividadPantallaBienvenida"></activity>
+        <activity android:name=".ActividadMapas"></activity>
 
         <receiver
             android:name=".NoticiasReceiver"/>

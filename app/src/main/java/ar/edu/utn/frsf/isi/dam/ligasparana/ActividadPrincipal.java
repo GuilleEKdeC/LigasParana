@@ -285,8 +285,10 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
                 Intent imP = new Intent(ActividadPrincipal.this,ActividadMisPartidos.class);
                 startActivity(imP);
                 break;
-            case R.id.nav_opinion:
-                Toast.makeText(getBaseContext(), "Clickee Opinión", Toast.LENGTH_LONG).show();
+            case R.id.nav_localizar:
+                startActivity(new Intent(ActividadPrincipal.this,ActividadMapas.class)); //BORRAR!!!!!
+                Toast.makeText(getBaseContext(), "Clickee Locaizar", Toast.LENGTH_LONG).show();
+
                 break;
             case R.id.nav_perfil:
                 Toast.makeText(getBaseContext(), "Clickee Perfil", Toast.LENGTH_LONG).show();
