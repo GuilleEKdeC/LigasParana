@@ -1,5 +1,6 @@
 package ar.edu.utn.frsf.isi.dam.ligasparana;
 
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import com.google.android.gms.maps.CameraUpdate;
@@ -28,6 +29,7 @@ public class ActividadMapas extends AppCompatActivity implements OnMapReadyCallb
     @Override
     public void onMapReady(GoogleMap map) {
         mapa = map;
+
         mapa.moveCamera( CameraUpdateFactory.newLatLngZoom(new LatLng(-31.780638,-60.452317) , 14.0f) );
 
         //moverA(double Lat, double Lng);  //En un futuro se usara esta funcion, para localizar las distintas ligas. HOY tenemos solo una.
@@ -40,7 +42,6 @@ public class ActividadMapas extends AppCompatActivity implements OnMapReadyCallb
                 .snippet("Complejo O. Chapino - Av. Jorge Newbery 5000"));
 
         mapa.getUiSettings().setMapToolbarEnabled(false);
-
 //Evento click en el marcador
         /*
         mapa.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
