@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 
 public class FragmentNovedades extends Fragment {
-    TextView tv_cuerpo, tv_titulo, tv_firma;
+    TextView tv_cuerpo, tv_titulo;
     /*----------------CONSTRUCTOR---------------*/
     public static FragmentNovedades newInstance() {
         FragmentNovedades fragment = new FragmentNovedades();
@@ -39,13 +39,13 @@ public class FragmentNovedades extends Fragment {
         //Obteniendo la instancia del TextView
         tv_titulo = (TextView)v.findViewById(R.id.tv_titulo);
         tv_cuerpo = (TextView)v.findViewById(R.id.tv_cuerpo);
-        tv_firma = (TextView)v.findViewById(R.id.tv_firma);
+
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
 
         tv_titulo.setText(prefs.getString("title","Noticias de la Semana"));
-        tv_cuerpo.setText(prefs.getString("noticia","Actualmente no hay nuevas novedades"));
-        tv_firma.setText(prefs.getString("usuario","Atte. la Comisión Directiva"));
+        tv_cuerpo.setText(prefs.getString("noticia","Actualmente no hay nuevas novedades")+". \n\n\t\t\t\t\t\t\t"+prefs.getString("usuario","Atte. la Comisión Directiva"));
+
 
         return v;
         /*=========================================================================================*/

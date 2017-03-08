@@ -193,8 +193,7 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
         /*Seteamos Datos del usuario*/
         usuario.setNombre(nombreUsuario);
         usuario.setCorreo(correoUsuario);
-        usuario.setCorreo(ligaSeleccionada);
-        usuario.setCorreo(categoriaSeleccionada);
+
         /*=========================================================================================*/
 
         /*Seteo nuevamente los datos del usuario, por si se cambio las configuraciones*/

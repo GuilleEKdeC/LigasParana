@@ -30,7 +30,7 @@
         <TextView
             android:id="@+id/tv_cuerpo"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="379dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
@@ -38,20 +38,6 @@
             android:layout_marginTop="19dp"
             android:scrollbars="vertical"
             android:text="Cuerpo de la notificación"
-            android:textSize="18sp"
-            android:layout_weight="0.03" />
-
-        <TextView
-            android:id="@+id/tv_firma"
-            android:layout_width="match_parent"
-            android:layout_height="33dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="19dp"
-            android:text="Firma"
-            android:textAlignment="textEnd"
             android:textSize="18sp" />
 
     </LinearLayout>
