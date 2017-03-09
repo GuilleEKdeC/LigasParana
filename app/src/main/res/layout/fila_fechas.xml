@@ -38,8 +38,9 @@
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="false"
                 android:background="@android:color/background_light"
-                android:contextClickable="false"
-                app:srcCompat="@drawable/iconomapas" />
+                android:contextClickable="true"
+                app:srcCompat="@drawable/iconomapas"
+                tools:clickable="true" />
 
             <TextView
                 android:id="@+id/tv_fechas_lugar"

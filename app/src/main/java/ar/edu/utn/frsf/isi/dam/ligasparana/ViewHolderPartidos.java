@@ -2,6 +2,7 @@ package ar.edu.utn.frsf.isi.dam.ligasparana;
 
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,7 +13,7 @@ public class ViewHolderPartidos {
     TextView tv_equipob = null;
     TextView tv_hora = null;
     TextView tv_lugar = null;
-    ImageView iv_iconomapa = null;
+    ImageButton ib_iconomapa = null;
 
     ViewHolderPartidos(View base) {
 
@@ -20,7 +21,7 @@ public class ViewHolderPartidos {
         this.tv_equipob = (TextView) base.findViewById((R.id.tv_fechas_equipob));
         this.tv_hora = (TextView) base.findViewById(R.id.tv_fechas_horario);
         this.tv_lugar = (TextView) base.findViewById(R.id.tv_fechas_lugar);
-        this.iv_iconomapa = (ImageView) base.findViewById(R.id.ib_fechas_iconomapa);
+        this.ib_iconomapa = (ImageButton) base.findViewById(R.id.ib_fechas_iconomapa);
     }
 
     //---------------------------------------Gets y Sets------------------------------------------//
@@ -40,10 +41,9 @@ public class ViewHolderPartidos {
         return tv_lugar;
     }
 
-    public ImageView getIv_iconomapa() {
-        return iv_iconomapa;
+    public ImageButton getIv_iconomapa() {
+        return ib_iconomapa;
     }
-
 
     public void setTv_equipoa(TextView tv_equipoa) {
         this.tv_equipoa = tv_equipoa;
@@ -61,8 +61,8 @@ public class ViewHolderPartidos {
         this.tv_lugar = tv_lugar;
     }
 
-    public void setIv_iconomapa(ImageView iv_iconomapa) {
-        this.iv_iconomapa = iv_iconomapa;
+    public void setIv_iconomapa(ImageButton ib_iconomapa) {
+        this.ib_iconomapa = ib_iconomapa;
     }
 
 }

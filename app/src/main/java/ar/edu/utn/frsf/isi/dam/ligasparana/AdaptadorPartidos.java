@@ -1,36 +1,39 @@
 package ar.edu.utn.frsf.isi.dam.ligasparana;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.NotificationCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
-
 import ar.edu.utn.frsf.isi.dam.ligasparana.Modelo.Partido;
 
 
 //Esta clase extiende de ArrayAdapter para poder personalizarla a nuestro gusto
 public class AdaptadorPartidos extends ArrayAdapter<Partido> {
 
+    final FragmentManager fragmentManager;
     Context contexto;
     ArrayList<Partido> partidos;
     LayoutInflater inflater;
     String cancha;
+    boolean agregarAMisPartidos = false;
 
     /*----------------------------------- Constructor --------------------------------------------*/
     //Constructor del AdaptadorDias donde se le pasaran por parametro el contexto de la aplicacion y el ArrayList de los Partidos
-    public AdaptadorPartidos(Context context, ArrayList<Partido> partidos) {
+    public AdaptadorPartidos(FragmentManager fragmentManager, Context context, ArrayList<Partido> partidos) {
         //Llamada al constructor de la clase superior donde requiere el contexto, el layout y el arraylist
-        super(context, R.layout.fila_fechas, partidos);/*R.layout.row*//*o 0*/
-        inflater= LayoutInflater.from(context);/*context*/
+        super(context, R.layout.fila_fechas, partidos);
+        inflater= LayoutInflater.from(context);
         this.contexto = context;
         this.partidos = partidos;
+        this.fragmentManager = fragmentManager;
     }
 
     /*-------------------------------------- Get View --------------------------------------------*/
@@ -49,13 +52,8 @@ public class AdaptadorPartidos extends ArrayAdapter<Partido> {
 
             //Obtenemos una referencia de Inflater para poder inflar el diseño
             inflater =(LayoutInflater) contexto.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            // inflater = contexto.getLayoutInflater();  //para cuando context es una activity
-            //LayoutInflater inflater= LayoutInflater.from(this.getContext());
-            //LayoutInflater inflater= LayoutInflater.from(contexto);
-           // item = inflater.inflate(R.layout.fila_mispartidos, null);
-            item = inflater.inflate(R.layout.fila_fechas, parent, false);
 
-            //item = inflater.inflate(contexto, R.layout.fila_mispartidos, this);
+            item = inflater.inflate(R.layout.fila_fechas, parent, false);
 
             //Creamos un nuevo viewholder que se almacenara en el tag de la vista
             viewholder = new ViewHolderPartidos(item);
@@ -68,33 +66,21 @@ public class AdaptadorPartidos extends ArrayAdapter<Partido> {
             viewholder = (ViewHolderPartidos) item.getTag();
         }
 
-       /* viewholder.tv_equipoa.setText(R.string.equipoa_prueba);
-        viewholder.tv_equipob.setText(R.string.equipob_prueba);
-        viewholder.tv_hora.setText(R.string.hora_prueba);
-        viewholder.tv_lugar.setText(R.string.lugar_prueba);
-        viewholder.iv_iconomapa.setImageResource(R.drawable.iconomapas);*/
-
         //Se cargan los datos desde el ArrayList
         viewholder.tv_equipoa.setText(partidos.get(position).getEquipo1());
         viewholder.tv_equipob.setText(partidos.get(position).getEquipo2());
         viewholder.tv_hora.setText(partidos.get(position).getHora());
         viewholder.tv_lugar.setText(partidos.get(position).getLugar());
-        viewholder.iv_iconomapa.setImageResource(R.drawable.iconomapas);
+        viewholder.ib_iconomapa.setImageResource(R.drawable.iconomapas);
 
-
-         //Implementamos el método OnLongClickListener que capturará la opción laboral seleccionada
-        item.setOnClickListener(new View.OnClickListener() {
+        // Seteo del listenner del Mapa ---------------------------------------
+        viewholder.ib_iconomapa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 cancha = partidos.get(position).getLugar();
                 cancha = cancha.substring(0,cancha.length()-3);
 Toast.makeText(contexto, "Cancha:"+cancha, Toast.LENGTH_SHORT).show();
-                Thread hiloMapa = new Thread(new Runnable() {
-                    public void run() {
-
-
-
-                Intent mapa = new Intent(contexto,ActividadMapas.class);
+                Intent mapa = new Intent(v.getContext(),ActividadMapas.class);
                 switch(cancha) {
                     case "Patronato":
                         mapa.putExtra("Latitud",-31.742945);
@@ -133,22 +119,32 @@ Toast.makeText(contexto, "Cancha:"+cancha, Toast.LENGTH_SHORT).show();
                         mapa.putExtra("Dirección","Av. Larramendi 2783");
                         break;
                 }
-                contexto.startActivity(mapa);
-                    }
-                });//fin-hilo
-                hiloMapa.start();
+                v.getContext().startActivity(mapa);
             }
-        });/* setOnLongClickListener(new View.OnLongClickListener(){
-            @Override
-            public boolean onLongClick(View v) {
+        });
+        // Fin listenner Mapa -------------------------------------------------
 
-                Toast.makeText(contexto, "Long Clicked", Toast.LENGTH_SHORT).show();
-                return true;
-            }
-                //Se notifica al adaptador de que el ArrayList que tiene asociado ha sufrido cambios (forzando asi a ir al metodo getView())
-     /*           adaptador.notifyDataSetChanged();*/
- /*       });
-*/
+                // Seteo del listenner sobre partido, para incorporarlo al listado "MisPartidos"
+       item.setOnLongClickListener(new View.OnLongClickListener() {
+           @Override
+           public boolean onLongClick(View v) {
+               Toast.makeText(contexto, "ACA VA EL DIALOGO PARA INSERTAR A MIS PARTIDOS", Toast.LENGTH_SHORT).show();
+              /* ConfirmaciónAgregarAMisPartidos dialogo = new ConfirmaciónAgregarAMisPartidos();
+               dialogo.show(fragmentManager, "tagAlerta");
+
+               if(dialogo.getAgregar()){
+                   Toast.makeText(contexto, "SI agrega", Toast.LENGTH_SHORT).show();
+               }
+               else{
+                   Toast.makeText(contexto, "NO agrega", Toast.LENGTH_SHORT).show();
+               }*/
+               return false;
+           }
+       });
+
+        //Se notifica al adaptador de que el ArrayList que tiene asociado ha sufrido cambios (forzando asi a ir al metodo getView())
+       //adaptador.notifyDataSetChanged();
+
         //Se devuelve ya la vista nueva o reutilizada que ha sido dibujada
         return (item);
     }

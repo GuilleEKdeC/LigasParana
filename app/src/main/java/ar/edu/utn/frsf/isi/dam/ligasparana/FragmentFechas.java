@@ -92,7 +92,7 @@ public class FragmentFechas extends Fragment {
             public void onClick(View v) {
                 listaDePartidos.clear();
                 cargarListaDePartidos("Fecha 1");        /* cargarListaDePartidos((String) parentView.getItemAtPosition(position));*/
-                adaptadorPartidos = new AdaptadorPartidos(getActivity().getBaseContext(),listaDePartidos);
+                adaptadorPartidos = new AdaptadorPartidos(getActivity().getSupportFragmentManager(),getActivity().getBaseContext(),listaDePartidos);
                 listVw.setAdapter(adaptadorPartidos);
                 //Esto es mas que nada es a nivel de diseño con el objetivo de crear unas lineas mas anchas entre item y item
                 listVw.setDividerHeight(5);}
@@ -102,7 +102,7 @@ public class FragmentFechas extends Fragment {
             public void onClick(View v) {
                 listaDePartidos.clear();
                 cargarListaDePartidos("Fecha 2");        /* cargarListaDePartidos((String) parentView.getItemAtPosition(position));*/
-                adaptadorPartidos = new AdaptadorPartidos(getActivity().getBaseContext(),listaDePartidos);
+                adaptadorPartidos = new AdaptadorPartidos(getActivity().getSupportFragmentManager(),getActivity().getBaseContext(),listaDePartidos);
                 listVw.setAdapter(adaptadorPartidos);
                 //Esto es mas que nada es a nivel de diseño con el objetivo de crear unas lineas mas anchas entre item y item
                 listVw.setDividerHeight(5);}
@@ -112,7 +112,7 @@ public class FragmentFechas extends Fragment {
             public void onClick(View v) {
                 listaDePartidos.clear();
                 cargarListaDePartidos("Fecha 3");        /* cargarListaDePartidos((String) parentView.getItemAtPosition(position));*/
-                adaptadorPartidos = new AdaptadorPartidos(getActivity().getBaseContext(),listaDePartidos);
+                adaptadorPartidos = new AdaptadorPartidos(getActivity().getSupportFragmentManager(),getActivity().getBaseContext(),listaDePartidos);
                 listVw.setAdapter(adaptadorPartidos);
                 //Esto es mas que nada es a nivel de diseño con el objetivo de crear unas lineas mas anchas entre item y item
                 listVw.setDividerHeight(5);}
@@ -122,7 +122,7 @@ public class FragmentFechas extends Fragment {
             public void onClick(View v) {
                 listaDePartidos.clear();
                 cargarListaDePartidos("Fecha 4");        /* cargarListaDePartidos((String) parentView.getItemAtPosition(position));*/
-                adaptadorPartidos = new AdaptadorPartidos(getActivity().getBaseContext(),listaDePartidos);
+                adaptadorPartidos = new AdaptadorPartidos(getActivity().getSupportFragmentManager(),getActivity().getBaseContext(),listaDePartidos);
                 listVw.setAdapter(adaptadorPartidos);
                 //Esto es mas que nada es a nivel de diseño con el objetivo de crear unas lineas mas anchas entre item y item
                 listVw.setDividerHeight(5);}
@@ -132,7 +132,7 @@ public class FragmentFechas extends Fragment {
             public void onClick(View v) {
                 listaDePartidos.clear();
                 cargarListaDePartidos("Fecha 5");        /* cargarListaDePartidos((String) parentView.getItemAtPosition(position));*/
-                adaptadorPartidos = new AdaptadorPartidos(getActivity().getBaseContext(),listaDePartidos);
+                adaptadorPartidos = new AdaptadorPartidos(getActivity().getSupportFragmentManager(),getActivity().getBaseContext(),listaDePartidos);
                 listVw.setAdapter(adaptadorPartidos);
                 //Esto es mas que nada es a nivel de diseño con el objetivo de crear unas lineas mas anchas entre item y item
                 listVw.setDividerHeight(5);}
@@ -142,7 +142,7 @@ public class FragmentFechas extends Fragment {
             public void onClick(View v) {
                 listaDePartidos.clear();
                 cargarListaDePartidos("Fecha 6");        /* cargarListaDePartidos((String) parentView.getItemAtPosition(position));*/
-                adaptadorPartidos = new AdaptadorPartidos(getActivity().getBaseContext(),listaDePartidos);
+                adaptadorPartidos = new AdaptadorPartidos(getActivity().getSupportFragmentManager(),getActivity().getBaseContext(),listaDePartidos);
                 listVw.setAdapter(adaptadorPartidos);
                 //Esto es mas que nada es a nivel de diseño con el objetivo de crear unas lineas mas anchas entre item y item
                 listVw.setDividerHeight(5);}
@@ -152,7 +152,7 @@ public class FragmentFechas extends Fragment {
             public void onClick(View v) {
                 listaDePartidos.clear();
                 cargarListaDePartidos("Fecha 7");        /* cargarListaDePartidos((String) parentView.getItemAtPosition(position));*/
-                adaptadorPartidos = new AdaptadorPartidos(getActivity().getBaseContext(),listaDePartidos);
+                adaptadorPartidos = new AdaptadorPartidos(getActivity().getSupportFragmentManager(),getActivity().getBaseContext(),listaDePartidos);
                 listVw.setAdapter(adaptadorPartidos);
                 //Esto es mas que nada es a nivel de diseño con el objetivo de crear unas lineas mas anchas entre item y item
                 listVw.setDividerHeight(5);}
@@ -162,7 +162,7 @@ public class FragmentFechas extends Fragment {
             public void onClick(View v) {
                 listaDePartidos.clear();
                 cargarListaDePartidos("Fecha 8");        /* cargarListaDePartidos((String) parentView.getItemAtPosition(position));*/
-                adaptadorPartidos = new AdaptadorPartidos(getActivity().getBaseContext(),listaDePartidos);
+                adaptadorPartidos = new AdaptadorPartidos(getActivity().getSupportFragmentManager(),getActivity().getBaseContext(),listaDePartidos);
                 listVw.setAdapter(adaptadorPartidos);
                 //Esto es mas que nada es a nivel de diseño con el objetivo de crear unas lineas mas anchas entre item y item
                 listVw.setDividerHeight(5);}
@@ -172,7 +172,7 @@ public class FragmentFechas extends Fragment {
             public void onClick(View v) {
                 listaDePartidos.clear();
                 cargarListaDePartidos("Fecha 9");        /* cargarListaDePartidos((String) parentView.getItemAtPosition(position));*/
-                adaptadorPartidos = new AdaptadorPartidos(getActivity().getBaseContext(),listaDePartidos);
+                adaptadorPartidos = new AdaptadorPartidos(getActivity().getSupportFragmentManager(),getActivity().getBaseContext(),listaDePartidos);
                 listVw.setAdapter(adaptadorPartidos);
                 //Esto es mas que nada es a nivel de diseño con el objetivo de crear unas lineas mas anchas entre item y item
                 listVw.setDividerHeight(5);}
@@ -182,7 +182,7 @@ public class FragmentFechas extends Fragment {
             public void onClick(View v) {
                 listaDePartidos.clear();
                 cargarListaDePartidos("Fecha 10");        /* cargarListaDePartidos((String) parentView.getItemAtPosition(position));*/
-                adaptadorPartidos = new AdaptadorPartidos(getActivity().getBaseContext(),listaDePartidos);
+                adaptadorPartidos = new AdaptadorPartidos(getActivity().getSupportFragmentManager(),getActivity().getBaseContext(),listaDePartidos);
                 listVw.setAdapter(adaptadorPartidos);
                 //Esto es mas que nada es a nivel de diseño con el objetivo de crear unas lineas mas anchas entre item y item
                 listVw.setDividerHeight(5);}
@@ -192,7 +192,7 @@ public class FragmentFechas extends Fragment {
             public void onClick(View v) {
                 listaDePartidos.clear();
                 cargarListaDePartidos("Fecha 11");        /* cargarListaDePartidos((String) parentView.getItemAtPosition(position));*/
-                adaptadorPartidos = new AdaptadorPartidos(getActivity().getBaseContext(),listaDePartidos);
+                adaptadorPartidos = new AdaptadorPartidos(getActivity().getSupportFragmentManager(),getActivity().getBaseContext(),listaDePartidos);
                 listVw.setAdapter(adaptadorPartidos);
                 //Esto es mas que nada es a nivel de diseño con el objetivo de crear unas lineas mas anchas entre item y item
                 listVw.setDividerHeight(5);}
@@ -202,7 +202,7 @@ public class FragmentFechas extends Fragment {
             public void onClick(View v) {
                 listaDePartidos.clear();
                 cargarListaDePartidos("Fecha 12");        /* cargarListaDePartidos((String) parentView.getItemAtPosition(position));*/
-                adaptadorPartidos = new AdaptadorPartidos(getActivity().getBaseContext(),listaDePartidos);
+                adaptadorPartidos = new AdaptadorPartidos(getActivity().getSupportFragmentManager(),getActivity().getBaseContext(),listaDePartidos);
                 listVw.setAdapter(adaptadorPartidos);
                 //Esto es mas que nada es a nivel de diseño con el objetivo de crear unas lineas mas anchas entre item y item
                 listVw.setDividerHeight(5);}
