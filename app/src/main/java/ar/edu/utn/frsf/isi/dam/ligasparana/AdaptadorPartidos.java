@@ -13,17 +13,19 @@ import android.widget.ArrayAdapter;
 import android.widget.Toast;
 import java.util.ArrayList;
 import ar.edu.utn.frsf.isi.dam.ligasparana.Modelo.Partido;
+import ar.edu.utn.frsf.isi.dam.ligasparana.ConfirmacionDialogFragment.ConfirmacionDialogFragmentListener;
 
 
 //Esta clase extiende de ArrayAdapter para poder personalizarla a nuestro gusto
-public class AdaptadorPartidos extends ArrayAdapter<Partido> {
+public class AdaptadorPartidos extends ArrayAdapter<Partido>{
 
     final FragmentManager fragmentManager;
     Context contexto;
     ArrayList<Partido> partidos;
     LayoutInflater inflater;
     String cancha;
-    boolean agregarAMisPartidos = false;
+    ConfirmacionDialogFragmentListener listener;
+    View partido;
 
     /*----------------------------------- Constructor --------------------------------------------*/
     //Constructor del AdaptadorDias donde se le pasaran por parametro el contexto de la aplicacion y el ArrayList de los Partidos
@@ -34,6 +36,18 @@ public class AdaptadorPartidos extends ArrayAdapter<Partido> {
         this.contexto = context;
         this.partidos = partidos;
         this.fragmentManager = fragmentManager;
+        this.listener = new ConfirmacionDialogFragmentListener() {
+            @Override
+            public void onPositiveClick() {
+                Toast.makeText(contexto, "AGREGAR", Toast.LENGTH_SHORT).show();
+                //ACA SE INSERTA EL PARTIDO A LA BASE DE DATOS
+            }
+
+            @Override
+            public void onNegativeClick() {
+                Toast.makeText(contexto, "CANCELAR", Toast.LENGTH_SHORT).show();
+            }
+        };
     }
 
     /*-------------------------------------- Get View --------------------------------------------*/
@@ -128,16 +142,13 @@ Toast.makeText(contexto, "Cancha:"+cancha, Toast.LENGTH_SHORT).show();
        item.setOnLongClickListener(new View.OnLongClickListener() {
            @Override
            public boolean onLongClick(View v) {
-               Toast.makeText(contexto, "ACA VA EL DIALOGO PARA INSERTAR A MIS PARTIDOS", Toast.LENGTH_SHORT).show();
-              /* ConfirmaciónAgregarAMisPartidos dialogo = new ConfirmaciónAgregarAMisPartidos();
-               dialogo.show(fragmentManager, "tagAlerta");
-
-               if(dialogo.getAgregar()){
-                   Toast.makeText(contexto, "SI agrega", Toast.LENGTH_SHORT).show();
-               }
-               else{
-                   Toast.makeText(contexto, "NO agrega", Toast.LENGTH_SHORT).show();
-               }*/
+               partido = v;
+               //creamos el fragmento
+               ConfirmacionDialogFragment confirmacionDialog = ConfirmacionDialogFragment.newInstance("Desea AGREGAR el partido a sus 'Partidos Favorítos' ?");
+               //definimos los listener
+               confirmacionDialog.setConfirmacionDialogFragmentListener(listener);
+               //mostramos la ventana de diálogo
+               confirmacionDialog.show(fragmentManager,null);
                return false;
            }
        });
@@ -148,5 +159,4 @@ Toast.makeText(contexto, "Cancha:"+cancha, Toast.LENGTH_SHORT).show();
         //Se devuelve ya la vista nueva o reutilizada que ha sido dibujada
         return (item);
     }
-
 }
