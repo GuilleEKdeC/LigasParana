@@ -1,5 +1,6 @@
 package ar.edu.utn.frsf.isi.dam.ligasparana;
 
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -9,23 +10,40 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
+import ar.edu.utn.frsf.isi.dam.ligasparana.Modelo.Equipo;
+import ar.edu.utn.frsf.isi.dam.ligasparana.Modelo.Partido;
 import ar.edu.utn.frsf.isi.dam.ligasparana.dao.ProyectoDAO;
 
 public class FragmentFechas extends Fragment {
 
-    ArrayList<String> listaDeFechas;
+    ArrayList<Partido> listaDePartidos;
     Spinner spinerVw;
     View v;
-    ArrayAdapter<String> adaptador;
+    AdaptadorPartidos adaptadorPartidos;
+    ArrayAdapter<String> adaptadorFechas;
     String[] fechas;
-    private ProyectoDAO proyectoDAO;
-    private Cursor cursor;
+    ListView listVw;
+    ProyectoDAO proyectoDAO;
+    private Button bt_f1;
+    private Button bt_f2;
+    private Button bt_f3;
+    private Button bt_f4;
+    private Button bt_f5;
+    private Button bt_f6;
+    private Button bt_f7;
+    private Button bt_f8;
+    private Button bt_f9;
+    private Button bt_f10;
+    private Button bt_f11;
+    private Button bt_f12;
 
     /*---------------------------------- CONSTRUCTOR ---------------------------------------------*/
     public static FragmentFechas newInstance() {
@@ -48,17 +66,151 @@ public class FragmentFechas extends Fragment {
 
         v = inflater.inflate(R.layout.fragment_fechas, container, false);
 
-        // Manejo del Spinner de las fechas disponibles ------------------------//
-        spinerVw = (Spinner) v.findViewById(R.id.spiner_fechas);
-        listaDeFechas = new ArrayList<String>();
-
         // manejo de sqlite para conocer las elecciones de LIGA y CATEGORÍA
         proyectoDAO = new ProyectoDAO(getActivity().getApplicationContext());
         proyectoDAO.open();
         Integer idCat = proyectoDAO.getCategoría();
-Toast.makeText(getActivity().getApplicationContext(), "FRAGMENT - Id Categoría: "+idCat, Toast.LENGTH_LONG).show();
+
+        listVw = (ListView) v.findViewById(R.id.lv_fechas);
+        listaDePartidos = new ArrayList<Partido>();
+
+        bt_f1 = (Button) v.findViewById(R.id.bt_fecha_fecha1);
+        bt_f2 = (Button) v.findViewById(R.id.bt_fecha_fecha2);
+        bt_f3 = (Button) v.findViewById(R.id.bt_fecha_fecha3);
+        bt_f4 = (Button) v.findViewById(R.id.bt_fecha_fecha4);
+        bt_f5 = (Button) v.findViewById(R.id.bt_fecha_fecha5);
+        bt_f6 = (Button) v.findViewById(R.id.bt_fecha_fecha6);
+        bt_f7 = (Button) v.findViewById(R.id.bt_fecha_fecha7);
+        bt_f8 = (Button) v.findViewById(R.id.bt_fecha_fecha8);
+        bt_f9 = (Button) v.findViewById(R.id.bt_fecha_fecha9);
+        bt_f10 = (Button) v.findViewById(R.id.bt_fecha_fecha10);
+        bt_f11 = (Button) v.findViewById(R.id.bt_fecha_fecha11);
+        bt_f12 = (Button) v.findViewById(R.id.bt_fecha_fecha12);
+
+        /*-----------------------------------------------*/
+        bt_f1.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                listaDePartidos.clear();
+                cargarListaDePartidos("Fecha 1");        /* cargarListaDePartidos((String) parentView.getItemAtPosition(position));*/
+                adaptadorPartidos = new AdaptadorPartidos(getActivity().getBaseContext(),listaDePartidos);
+                listVw.setAdapter(adaptadorPartidos);
+                //Esto es mas que nada es a nivel de diseño con el objetivo de crear unas lineas mas anchas entre item y item
+                listVw.setDividerHeight(5);}
+        });
+        /*-----------------------------------------------*/
+        bt_f2.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                listaDePartidos.clear();
+                cargarListaDePartidos("Fecha 2");        /* cargarListaDePartidos((String) parentView.getItemAtPosition(position));*/
+                adaptadorPartidos = new AdaptadorPartidos(getActivity().getBaseContext(),listaDePartidos);
+                listVw.setAdapter(adaptadorPartidos);
+                //Esto es mas que nada es a nivel de diseño con el objetivo de crear unas lineas mas anchas entre item y item
+                listVw.setDividerHeight(5);}
+        });
+        /*-----------------------------------------------*/
+        bt_f3.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                listaDePartidos.clear();
+                cargarListaDePartidos("Fecha 3");        /* cargarListaDePartidos((String) parentView.getItemAtPosition(position));*/
+                adaptadorPartidos = new AdaptadorPartidos(getActivity().getBaseContext(),listaDePartidos);
+                listVw.setAdapter(adaptadorPartidos);
+                //Esto es mas que nada es a nivel de diseño con el objetivo de crear unas lineas mas anchas entre item y item
+                listVw.setDividerHeight(5);}
+        });
+        /*-----------------------------------------------*/
+        bt_f4.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                listaDePartidos.clear();
+                cargarListaDePartidos("Fecha 4");        /* cargarListaDePartidos((String) parentView.getItemAtPosition(position));*/
+                adaptadorPartidos = new AdaptadorPartidos(getActivity().getBaseContext(),listaDePartidos);
+                listVw.setAdapter(adaptadorPartidos);
+                //Esto es mas que nada es a nivel de diseño con el objetivo de crear unas lineas mas anchas entre item y item
+                listVw.setDividerHeight(5);}
+        });
+        /*-----------------------------------------------*/
+        bt_f5.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                listaDePartidos.clear();
+                cargarListaDePartidos("Fecha 5");        /* cargarListaDePartidos((String) parentView.getItemAtPosition(position));*/
+                adaptadorPartidos = new AdaptadorPartidos(getActivity().getBaseContext(),listaDePartidos);
+                listVw.setAdapter(adaptadorPartidos);
+                //Esto es mas que nada es a nivel de diseño con el objetivo de crear unas lineas mas anchas entre item y item
+                listVw.setDividerHeight(5);}
+        });
+        /*-----------------------------------------------*/
+        bt_f6.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                listaDePartidos.clear();
+                cargarListaDePartidos("Fecha 6");        /* cargarListaDePartidos((String) parentView.getItemAtPosition(position));*/
+                adaptadorPartidos = new AdaptadorPartidos(getActivity().getBaseContext(),listaDePartidos);
+                listVw.setAdapter(adaptadorPartidos);
+                //Esto es mas que nada es a nivel de diseño con el objetivo de crear unas lineas mas anchas entre item y item
+                listVw.setDividerHeight(5);}
+        });
+        /*-----------------------------------------------*/
+        bt_f7.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                listaDePartidos.clear();
+                cargarListaDePartidos("Fecha 7");        /* cargarListaDePartidos((String) parentView.getItemAtPosition(position));*/
+                adaptadorPartidos = new AdaptadorPartidos(getActivity().getBaseContext(),listaDePartidos);
+                listVw.setAdapter(adaptadorPartidos);
+                //Esto es mas que nada es a nivel de diseño con el objetivo de crear unas lineas mas anchas entre item y item
+                listVw.setDividerHeight(5);}
+        });
+        /*-----------------------------------------------*/
+        bt_f8.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                listaDePartidos.clear();
+                cargarListaDePartidos("Fecha 8");        /* cargarListaDePartidos((String) parentView.getItemAtPosition(position));*/
+                adaptadorPartidos = new AdaptadorPartidos(getActivity().getBaseContext(),listaDePartidos);
+                listVw.setAdapter(adaptadorPartidos);
+                //Esto es mas que nada es a nivel de diseño con el objetivo de crear unas lineas mas anchas entre item y item
+                listVw.setDividerHeight(5);}
+        });
+        /*-----------------------------------------------*/
+        bt_f9.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                listaDePartidos.clear();
+                cargarListaDePartidos("Fecha 9");        /* cargarListaDePartidos((String) parentView.getItemAtPosition(position));*/
+                adaptadorPartidos = new AdaptadorPartidos(getActivity().getBaseContext(),listaDePartidos);
+                listVw.setAdapter(adaptadorPartidos);
+                //Esto es mas que nada es a nivel de diseño con el objetivo de crear unas lineas mas anchas entre item y item
+                listVw.setDividerHeight(5);}
+        });
+        /*-----------------------------------------------*/
+        bt_f10.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                listaDePartidos.clear();
+                cargarListaDePartidos("Fecha 10");        /* cargarListaDePartidos((String) parentView.getItemAtPosition(position));*/
+                adaptadorPartidos = new AdaptadorPartidos(getActivity().getBaseContext(),listaDePartidos);
+                listVw.setAdapter(adaptadorPartidos);
+                //Esto es mas que nada es a nivel de diseño con el objetivo de crear unas lineas mas anchas entre item y item
+                listVw.setDividerHeight(5);}
+        });
+        /*-----------------------------------------------*/
+        bt_f11.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                listaDePartidos.clear();
+                cargarListaDePartidos("Fecha 11");        /* cargarListaDePartidos((String) parentView.getItemAtPosition(position));*/
+                adaptadorPartidos = new AdaptadorPartidos(getActivity().getBaseContext(),listaDePartidos);
+                listVw.setAdapter(adaptadorPartidos);
+                //Esto es mas que nada es a nivel de diseño con el objetivo de crear unas lineas mas anchas entre item y item
+                listVw.setDividerHeight(5);}
+        });
+        /*-----------------------------------------------*/
+        bt_f12.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                listaDePartidos.clear();
+                cargarListaDePartidos("Fecha 12");        /* cargarListaDePartidos((String) parentView.getItemAtPosition(position));*/
+                adaptadorPartidos = new AdaptadorPartidos(getActivity().getBaseContext(),listaDePartidos);
+                listVw.setAdapter(adaptadorPartidos);
+                //Esto es mas que nada es a nivel de diseño con el objetivo de crear unas lineas mas anchas entre item y item
+                listVw.setDividerHeight(5);}
+        });
+
+
         // fin manejo sqlite
-        switch (idCat){// Setea el Spinner con las fechas posibles, cargados en el recurso arrays.xml
+    /*    switch (idCat){// Setea el Spinner con las fechas posibles, cargados en el recurso arrays.xml
             case 1:
                 fechas = getResources().getStringArray(R.array.fechas_senior);
                 break;
@@ -76,55 +228,44 @@ Toast.makeText(getActivity().getApplicationContext(), "FRAGMENT - Id Categoría:
                 break;
         }
 
-        adaptador = new ArrayAdapter<String>(getActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, fechas);
-        spinerVw.setAdapter(adaptador);
+       // Manejo del Spinner de las fechas disponibles ------------------------//
+        spinerVw = (Spinner) v.findViewById(R.id.sp_fechas_fechas);
+        adaptadorFechas = new ArrayAdapter<String>(getActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, fechas);
+        spinerVw.setAdapter(adaptadorFechas);
 
         // Listener Spinner
         spinerVw.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                /*
-                //Guardamos en una variable la Categoría seleccionada
-                nameCategoria = (String) spinerVw.getItemAtPosition(position);
-                spinerVw.clearFocus();
-                categoria.setId(Categoria.CATEGORIAS_MOCK[0].getIdOf(nameCategoria));
-                categoria.setDescripcion(nameCategoria);
-                */
-            }
+
+             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+
+ /*             listVw = (ListView) v.findViewById(R.id.lv_fechas);
+                listaDePartidos = new ArrayList<Partido>();*/
+ /*             cargarListaDePartidos("FECHA 1");*/
+               // cargarListaDePartidos((String) parentView.getItemAtPosition(position));
+//Toast.makeText(getActivity().getApplicationContext(), "Size partidos: "+listaDePartidos.size(), Toast.LENGTH_LONG).show();
+/*              adaptadorPartidos = new AdaptadorPartidos(getActivity().getBaseContext(),listaDePartidos);
+                listVw.setAdapter(adaptadorPartidos);
+                //Esto es mas que nada es a nivel de diseño con el objetivo de crear unas lineas mas anchas entre item y item
+                listVw.setDividerHeight(5);
+           }
 
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {  }
 
-        });// Fin Listener
+        });*/// Fin Listener
         //----------------------------- Fin del Spinner -----------------------//
 
         return v;
 
     }
 
-    /*-------------------------------------- get Adaptador ---------------------------------------*/
-    public ArrayAdapter<String> getAdaptador(){
-        return this.adaptador;
-    }
-}
-/*
-public class FragmentEquipos extends Fragment {
-    ArrayList<String> listaDeEquipos;
-    ListView listVw;
-    View v;
-    ArrayAdapter<String> adaptador;
-
-
-
-
-
-
     /*---------------------------------------------------------------------------------------------*/
- /*   private void cargarListaDeEquipos() {
+    private void cargarListaDePartidos(String fecha) {
 
-        for (int i=0; i< Equipo.EQUIPOS_MOCK.length ; i++) {
-            listaDeEquipos.add(Equipo.EQUIPOS_MOCK[i].getNombre());
+        for (int i = 0; i< Partido.PARTIDOS_MOCK.length; i++) {
+            if(Partido.PARTIDOS_MOCK[i].getFecha().equals(fecha)){
+                listaDePartidos.add(Partido.PARTIDOS_MOCK[i]);
+            }
         }
     }
 }
- */

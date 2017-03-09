@@ -1,4 +1,5 @@
 package ar.edu.utn.frsf.isi.dam.ligasparana;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -23,6 +24,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.Menu;
+import android.widget.AdapterView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,7 +33,7 @@ import ar.edu.utn.frsf.isi.dam.ligasparana.Modelo.Usuario;
 import ar.edu.utn.frsf.isi.dam.ligasparana.dao.ProyectoDAO;
 import ar.edu.utn.frsf.isi.dam.ligasparana.dao.ProyectoDBMetadata;
 
-public class ActividadPrincipal extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class ActividadPrincipal extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener/*, MiFragmentPagerAdapter.OnFragmentSelectedListener*/{
 
 
     private ProyectoDAO proyectoDAO;
@@ -62,13 +65,8 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.o_4_actividad_principal);
 
-        //Establecer el PageAdapter del componente ViewPager
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
-        fadapter = new MiFragmentPagerAdapter(getSupportFragmentManager());
-        viewPager.setAdapter(fadapter);
-
         //  manejo de sqlite para controlar la existencia de las elecciones de LIGA y CATEGORÍA ----
-        proyectoDAO = new ProyectoDAO(ActividadPrincipal.this);
+/*        proyectoDAO = new ProyectoDAO(ActividadPrincipal.this);
         proyectoDAO.open();
         cursor = proyectoDAO.listaPreferencias();
         if(cursor.moveToFirst()){   //si hay filas en el cursor
@@ -87,8 +85,7 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
            // Toast.makeText(getBaseContext(), "VACIO", Toast.LENGTH_LONG).show();
         }
         // fin manejo sqlite -----------------------------------------------------------------------
-
-        /*=========================================================================================*/
+*/
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         if(getIntent().hasExtra("title") && getIntent().hasExtra("noticia") && getIntent().hasExtra("usuario")){
             SharedPreferences.Editor editor = prefs.edit();
@@ -118,8 +115,18 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
         //Establecer el PageAdapter del componente ViewPager
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         fadapter = new MiFragmentPagerAdapter(getSupportFragmentManager());
-       // viewPager.setAdapter(new MiFragmentPagerAdapter(getSupportFragmentManager()));
+
+        /*--*/
+      /*  Spinner sp = (Spinner) fadapter.getItem(2).getActivity().findViewById(R.id.sp_resultados);
+        sp.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(ActividadPrincipal.this, "Clickieeeeeeeeeeeee spinner RESULTADOS", Toast.LENGTH_LONG).show();
+            }
+        });*/
+        /*--*/
         viewPager.setAdapter(fadapter);
+
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.appbartabs);
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
@@ -129,7 +136,7 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbarFrag, R.string.navigation_drawer_open, R.string.navigation_drawer_close){//Compatibiliza el Drawer Layout con la barra de acciones (Toolbar)
             /*******************Agregado*******************/
-            public void onDrawerClosed(View drawerView) {
+           public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
                 getSupportActionBar().setTitle("Después de cerrar el Navegador (ManiActivity)");//cambia el título mas35 la toolbar
                 invalidateOptionsMenu(); //indica a Android que los contenidos del menú han cambiado y que el menú debe ser redibujado. Crea una llamada al método onPrepareOptionsMenú
@@ -163,16 +170,13 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
         textCategoriaSeleccionada.setText(ligaSeleccionada);
         textLigaSeleccionada.setText(categoriaSeleccionada);
         /*=========================================================================================*/
-        //Crea el listView con Mis Partidos
-        //lvPartidos = (ListView) findViewById(R.id.lv_contenido_principal); //lvPartidos es el listView que se encuentra en el content_main
     }//Fin ON CREATE
-
+/*
     /*-------------------------------------- On Resume -------------------------------------------*/
     protected void onResume() {
         super.onResume();
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-         /*=========================================================================================*/
         if(getIntent().hasExtra("title") && getIntent().hasExtra("noticia") && getIntent().hasExtra("usuario")){
             SharedPreferences.Editor editor = prefs.edit();
             tituloPush = getIntent().getStringExtra("title");
@@ -185,7 +189,7 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
             editor.commit();
         }
 
-        nombreUsuario = prefs.getString("nombre_usuario","USUARIO");
+        nombreUsuario = prefs.getString("nombre_usuario","La Cholito");
         correoUsuario = prefs.getString("email_usuario","email@usuario.com");
         ligaSeleccionada = "Liga de Veteranos";//setear con el valor de la BD de SQLite
         categoriaSeleccionada = "Senior"; //setear con el valor de la BD de SQLite
@@ -194,14 +198,11 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
         usuario.setNombre(nombreUsuario);
         usuario.setCorreo(correoUsuario);
 
-        /*=========================================================================================*/
-
         /*Seteo nuevamente los datos del usuario, por si se cambio las configuraciones*/
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view); //Crea una nueva variable NavigationView, tomando como referencia la definida en activity_main.xml.
         navigationView.setNavigationItemSelectedListener(this); //le setea un listener
         View header=navigationView.getHeaderView(0);
 
-        /*=========================================================================================*/
         textUsuario = (TextView)header.findViewById(R.id.textV_usuario);
         textEmail = (TextView)header.findViewById(R.id.textV_correo);
         textLigaSeleccionada = (TextView)header.findViewById(R.id.textV_liga);
@@ -211,15 +212,13 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
         textEmail.setText(correoUsuario);
         textLigaSeleccionada.setText(ligaSeleccionada);
         textCategoriaSeleccionada.setText(categoriaSeleccionada);
-        /*=========================================================================================*/
     }
-    /*=========================================================================================*/
-    private void enviarNotificacion(){
+
+    /*--------------------------------- enviar Notificación -----------------------------------*/
+        private void enviarNotificacion(){
         NoticiasReceiver activarAlarma = new NoticiasReceiver();
         activarAlarma.sendRepeatingAlarm(ActividadPrincipal.this);
-        // finish();
     }
-    /*=========================================================================================*/
 
     /* Inflar el menu*/
     /*--------------------------------- on Create Options Menu -----------------------------------*/
@@ -249,16 +248,14 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
             //  startActivity(new Intent(MainActivity.this,AyudaActivity.class));
             return true;
         }
-        /*=========================================================================================*/
         //Si selecciono ACERCA DE
         if (id == R.id.Acerca_de) {
             Toast.makeText(getBaseContext(), "Acerca de...", Toast.LENGTH_LONG).show();
             enviarNotificacion(); //Esto lanza una notificacion con alarmManager
             return true;
         }
-        /*=========================================================================================*/
         return super.onOptionsItemSelected(item);
-    }
+    }// FIN on Options Item Selected
 
 
     /*---------------------- on Navigation Item Selected (listener del Navegador)-----------------*/
@@ -300,7 +297,7 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
         return true;//Devuelve TRUE en caso de que fue usado y FALSO en caso contrario
     }
 
-       @Override
+    @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -317,10 +314,20 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
         }
     }
 
+/*    @Override
+    public void onFragmentSelected(Context c, String s) {
+        Toast.makeText(this, "En Principal, spinner RESULTADOS", Toast.LENGTH_LONG).show();
+    }
+*/
       /*-------------------------------------- On Pause --------------------------------------------*/
-    protected void onPause() {
+ /*   protected void onPause() {
         super.onPause();
         if(cursor!=null) cursor.close();
         if(proyectoDAO!=null) proyectoDAO.close();
     }
-}
+ */
+/*      @Override
+      public void onCorreoSeleccionado(String c) {
+          Toast.makeText(this, "Clickieeeeeeeeeeeee spinner RESULTADOS", Toast.LENGTH_LONG).show();
+      }
+*/}

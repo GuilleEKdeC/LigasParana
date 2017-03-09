@@ -23,7 +23,7 @@ public class ActividadMisPartidos extends AppCompatActivity {
 
    //   definición de variables para el adaptador sutituto
    //   private ArrayList<Partido> listaPartidos;
-   //   private AdaptadorSustitutoMisPartidos adaptadorSustituto;
+   //   private AdaptadorPartidos adaptadorSustituto;
 
     /*------------------------------------- ON CREATE --------------------------------------------*/
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +58,7 @@ public class ActividadMisPartidos extends AppCompatActivity {
     //  manejo adaptador sustituto
     //  llamamos a un Inicializar lista partidos que cargue cada fila del cursor dentro de cada elemento Partido
     //  inicializarListaPartidos(cursor);
-    //  adaptadorSustituto= new AdaptadorSustitutoMisPartidos(this.getBaseContext(),listaPartidos );//getApplicationContext(),Arrays.asList(jobs)     //era solo this
+    //  adaptadorSustituto= new AdaptadorPartidos(this.getBaseContext(),listaPartidos );//getApplicationContext(),Arrays.asList(jobs)     //era solo this
     //  lvPartidos.setAdapter(adaptadorSustituto);
 
     //Esto es mas que nada es a nivel de diseño con el objetivo de crear unas lineas mas anchas entre item y item

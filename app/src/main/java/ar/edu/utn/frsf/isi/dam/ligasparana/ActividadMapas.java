@@ -1,5 +1,6 @@
 package ar.edu.utn.frsf.isi.dam.ligasparana;
 
+import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +16,11 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class ActividadMapas extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mapa;
+    private Intent intent_mapa;
+    Double latitud;
+    Double longitud;
+    String titulo;
+    String direccion;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +29,13 @@ public class ActividadMapas extends AppCompatActivity implements OnMapReadyCallb
                 getSupportFragmentManager()
                         .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        intent_mapa = getIntent();
+        intent_mapa.getDoubleExtra("Latitud",latitud);
+        intent_mapa.getDoubleExtra("Longitud",longitud);
+        titulo = intent_mapa.getStringExtra("Título");
+        direccion = intent_mapa.getStringExtra("Direcciòn");
+
     }
 
 
@@ -30,16 +43,11 @@ public class ActividadMapas extends AppCompatActivity implements OnMapReadyCallb
     public void onMapReady(GoogleMap map) {
         mapa = map;
 
-        mapa.moveCamera( CameraUpdateFactory.newLatLngZoom(new LatLng(-31.780638,-60.452317) , 14.0f) );
-
-        //moverA(double Lat, double Lng);  //En un futuro se usara esta funcion, para localizar las distintas ligas. HOY tenemos solo una.
+        moverA(latitud, longitud,titulo,direccion);  //En un futuro se usara esta funcion, para localizar las distintas ligas. HOY tenemos solo una.
 
         mapa.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
         mapa.getUiSettings().setZoomControlsEnabled(true);
-        mapa.addMarker(new MarkerOptions()
-                .position(new LatLng(-31.780638, -60.452317))
-                .title("Liga de Veteranos")
-                .snippet("Complejo O. Chapino - Av. Jorge Newbery 5000"));
+
 
         mapa.getUiSettings().setMapToolbarEnabled(false);
 //Evento click en el marcador
@@ -61,13 +69,13 @@ public class ActividadMapas extends AppCompatActivity implements OnMapReadyCallb
 
     }
 
-    private void moverA(double Lat, double Lng)
+    private void moverA(double Lat, double Lng, String titulo, String dir)
     {
         LatLng latlng = new LatLng(Lat, Lng);
 
         CameraPosition camPos = new CameraPosition.Builder()
                 .target(latlng)   //Centramos el mapa en Madrid
-                .zoom(2)         //Establecemos el zoom en 19
+                .zoom(17)         //Establecemos el zoom en 19
                // .bearing(0)      //Establecemos la orientación con el noreste arriba
                 //.tilt(0)         //Bajamos el punto de vista de la cámara 70 grados
                 .build();
@@ -76,5 +84,9 @@ public class ActividadMapas extends AppCompatActivity implements OnMapReadyCallb
                 CameraUpdateFactory.newCameraPosition(camPos);
 
         mapa.animateCamera(camUpd3);
+        mapa.addMarker(new MarkerOptions()
+                .position(new LatLng(Lat, Lng))
+                .title(titulo)
+                .snippet(dir));
     }
 }

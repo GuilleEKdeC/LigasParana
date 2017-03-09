@@ -11,8 +11,10 @@
         <string name="cancelarBorrarMP">Cancelar</string>
 
     <string name="categoria_prueba">Categoria de prueba</string>
-    <string name="equipos_prueba">Monitos vs Cebras</string>
-    <string name="fecha_prueba">2020:1:01 00:00:00</string>
+    <string name="equipoa_prueba">Monitos</string>
+    <string name="equipob_prueba">Cebras</string>
+    <string name="fecha_prueba">2020:1:01</string>
+    <string name="hora_prueba">00:00:00</string>
     <string name="lugar_prueba">Potrero</string>
     <string name="notificar_prueba">FALSE</string>
     <string name="google_maps_key">AIzaSyATxay4rA1sG1LZMu_C7vKRmZqV9hYsHzo</string>
