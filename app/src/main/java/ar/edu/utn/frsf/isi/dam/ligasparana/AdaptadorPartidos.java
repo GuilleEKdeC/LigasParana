@@ -2,6 +2,7 @@ package ar.edu.utn.frsf.isi.dam.ligasparana;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import ar.edu.utn.frsf.isi.dam.ligasparana.Modelo.Partido;
 import ar.edu.utn.frsf.isi.dam.ligasparana.ConfirmacionDialogFragment.ConfirmacionDialogFragmentListener;
+import ar.edu.utn.frsf.isi.dam.ligasparana.dao.ProyectoDAO;
 
 
 //Esta clase extiende de ArrayAdapter para poder personalizarla a nuestro gusto
@@ -22,11 +24,12 @@ public class AdaptadorPartidos extends ArrayAdapter<Partido>{
     LayoutInflater inflater;
     String cancha;
     ConfirmacionDialogFragmentListener listener;
-    View partido;
+    int posicion;
+    ProyectoDAO proyectoDAO;
 
     /*----------------------------------- Constructor --------------------------------------------*/
     //Constructor del AdaptadorDias donde se le pasaran por parametro el contexto de la aplicacion y el ArrayList de los Partidos
-    public AdaptadorPartidos(FragmentManager fragmentManager, Context context, ArrayList<Partido> partidos) {
+    public AdaptadorPartidos(FragmentManager fragmentManager, final Context context, ArrayList<Partido> partidos) {
         //Llamada al constructor de la clase superior donde requiere el contexto, el layout y el arraylist
         super(context, R.layout.fila_fechas, partidos);
         inflater= LayoutInflater.from(context);
@@ -34,17 +37,21 @@ public class AdaptadorPartidos extends ArrayAdapter<Partido>{
         this.partidos = partidos;
         this.fragmentManager = fragmentManager;
         this.listener = new ConfirmacionDialogFragmentListener() {
-            @Override
+
             public void onPositiveClick() {
-                Toast.makeText(contexto, "AGREGAR", Toast.LENGTH_SHORT).show();
-                //ACA SE INSERTA EL PARTIDO A LA BASE DE DATOS
+                proyectoDAO = new ProyectoDAO(contexto);
+                proyectoDAO.open();
+                Partido p = Partido.PARTIDOS_MOCK[posicion];
+                boolean existe = proyectoDAO.existeMiPartido(p.getLiga(),p.getCategoria(),p.getEquipo1(),p.getEquipo2(),p.getFecha(),p.getHora());
+                if (existe)  Toast.makeText(contexto, "Este Partido ya figura en 'MisPartidos'", Toast.LENGTH_LONG).show();
+                else {
+                    p.setId(proyectoDAO.getLastId()+1);
+                    proyectoDAO.insertarPartido(p);
+                }
             }
 
-            @Override
-            public void onNegativeClick() {
-                Toast.makeText(contexto, "CANCELAR", Toast.LENGTH_SHORT).show();
-            }
-        };
+            public void onNegativeClick() {   }
+        };// Fin - listener
     }
 
     /*-------------------------------------- Get View --------------------------------------------*/
@@ -53,6 +60,7 @@ public class AdaptadorPartidos extends ArrayAdapter<Partido>{
     //la vista (View) del elemento mostrado y el conjunto de vistas.
     public View getView(final int position, View convertView, ViewGroup parent) {
 
+        posicion = position;
         View item = convertView;
         //Creamos esta variable para almacenar posteriormente en el, la vista que ha dibujado
         ViewHolderPartidos viewholder;
@@ -138,9 +146,8 @@ public class AdaptadorPartidos extends ArrayAdapter<Partido>{
         item.setOnLongClickListener(new View.OnLongClickListener() {
            @Override
            public boolean onLongClick(View v) {
-               partido = v;
                //creamos el fragmento
-               ConfirmacionDialogFragment confirmacionDialog = ConfirmacionDialogFragment.newInstance("Desea AGREGAR el partido a sus 'Partidos Favorítos' ?");
+               ConfirmacionDialogFragment confirmacionDialog = ConfirmacionDialogFragment.newInstance("Agregar Partido en 'Mis Partidos'?");
                //definimos los listener
                confirmacionDialog.setConfirmacionDialogFragmentListener(listener);
                //mostramos la ventana de diálogo
@@ -148,9 +155,6 @@ public class AdaptadorPartidos extends ArrayAdapter<Partido>{
                return false;
            }
         });
-
-        //Se notifica al adaptador de que el ArrayList que tiene asociado ha sufrido cambios (forzando asi a ir al metodo getView())
-       //adaptador.notifyDataSetChanged();
 
         //Se devuelve ya la vista nueva o reutilizada que ha sido dibujada
         return (item);

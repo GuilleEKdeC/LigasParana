@@ -20,7 +20,7 @@ public class ProyectoDBMetadata {
         public static final String CATEGORIA = "CATEGORIA";
         public static final String EQUIPO1 ="EQUIPO1";
         public static final String EQUIPO2 ="EQUIPO2";
-        public static final String FECHA ="FECHA";  /*formato "YYYY-MM-DD HH:MM:SS.SSS".*/
+        public static final String FECHA ="FECHA";  /*formato dd:mm:aaaa - hh:mm.*/
         public static final String LUGAR ="LUGAR";
         public static final String NOTIFICAR = "NOTIFICAR";
     }

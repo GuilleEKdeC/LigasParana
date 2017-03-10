@@ -6,8 +6,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
+import android.widget.Toast;
 
 import java.io.File;
+
+import ar.edu.utn.frsf.isi.dam.ligasparana.Modelo.Partido;
 
 
 public class ProyectoDAO {
@@ -19,6 +23,13 @@ public class ProyectoDAO {
     //                                  tar.RESPONSABLE = usr._ID AND
     //                                  tar.PRIORIDAD   = pri._ID AND
     //                                  tar.PROYECTO    = ?
+private static final String _SQL_MIS_ID =
+        "SELECT "
+                + ProyectoDBMetadata.TABLA_MISPARTIDOS_ALIAS+"."+ ProyectoDBMetadata.TablaMisPartidosMetadata._ID+" as "+ ProyectoDBMetadata.TablaMisPartidosMetadata._ID+
+        " FROM "
+                + ProyectoDBMetadata.TABLA_MISPARTIDOS +" "+ ProyectoDBMetadata.TABLA_MISPARTIDOS_ALIAS;
+
+
     private static final String _SQL_MISPARTIDOS =
             "SELECT "
                 + ProyectoDBMetadata.TABLA_MISPARTIDOS_ALIAS+"."+ ProyectoDBMetadata.TablaMisPartidosMetadata._ID+" as "+ ProyectoDBMetadata.TablaMisPartidosMetadata._ID+
@@ -30,7 +41,19 @@ public class ProyectoDAO {
             ", "+ ProyectoDBMetadata.TablaMisPartidosMetadata.LUGAR+
             ", "+ ProyectoDBMetadata.TablaMisPartidosMetadata.NOTIFICAR+
             " FROM "
-                + ProyectoDBMetadata.TABLA_MISPARTIDOS + " "+ ProyectoDBMetadata.TABLA_MISPARTIDOS_ALIAS;
+                + ProyectoDBMetadata.TABLA_MISPARTIDOS +" "+ ProyectoDBMetadata.TABLA_MISPARTIDOS_ALIAS;
+
+    private static final String _SQL_PARTIDO_X =
+            "SELECT "
+                    + ProyectoDBMetadata.TABLA_MISPARTIDOS_ALIAS+"."+ ProyectoDBMetadata.TablaMisPartidosMetadata._ID+" as "+ ProyectoDBMetadata.TablaMisPartidosMetadata._ID+
+            " FROM "
+                    + ProyectoDBMetadata.TABLA_MISPARTIDOS +" "+ ProyectoDBMetadata.TABLA_MISPARTIDOS_ALIAS+
+            " WHERE "+
+                    ProyectoDBMetadata.TABLA_MISPARTIDOS_ALIAS+"."+ProyectoDBMetadata.TablaMisPartidosMetadata.LIGA+" = ? AND "+
+                    ProyectoDBMetadata.TABLA_MISPARTIDOS_ALIAS+"."+ProyectoDBMetadata.TablaMisPartidosMetadata.CATEGORIA+" = ? AND "+
+                    ProyectoDBMetadata.TABLA_MISPARTIDOS_ALIAS+"."+ProyectoDBMetadata.TablaMisPartidosMetadata.EQUIPO1+" = ? AND "+
+                    ProyectoDBMetadata.TABLA_MISPARTIDOS_ALIAS+"."+ProyectoDBMetadata.TablaMisPartidosMetadata.EQUIPO2+" = ? AND "+
+                    ProyectoDBMetadata.TABLA_MISPARTIDOS_ALIAS+"."+ProyectoDBMetadata.TablaMisPartidosMetadata.FECHA+" = ?"; //dd:mm:aaaa - hh:mm
 
     private static final String _SQL_MISPREFERENCIAS =
             "SELECT "
@@ -66,37 +89,29 @@ public class ProyectoDAO {
     }
 
     /*----------------------------------------- Close --------------------------------------------*/
-    /*  Cuando terminamos de trabajar con la base de datos, o mas35 más tardar cuando la actividad es
+    /*  Cuando terminamos de trabajar con la base de datos, o a más tardar cuando la actividad es
         cerradada, simplemente sobre la instancia de SQLiteOpenHelper invocamos al método close().*/
     public void close(){    //"Cerrar" la BdD, implica no permitir su escritura solamente, pero si su lectura??
         db = dbHelper.getReadableDatabase();
     }
 
     /*------------------------------------- Lista Tareas -----------------------------------------*/
-    /* Cursor: .Colección de filas que se devuelven desde una SQLiteDatabase.
-                .Este objeto tiene métodos para recorrer filas una mas35 la vez como un cursor hacia adelante y recuperar las filas sólo cuando sea necesario.
-                .También puede saltar hacia adelante o hacia atrás si es necesario mediante la aplicación de cualidades de ventanas.
-                .Y se va mas35 utilizar para leer los valores de columna para cualquier fila actual.
-       rawQuery(el select, (puede incluir) parametros posicionales) => Retorna un cursor que permite iterar sobre los resultados.*/
     public Cursor listaMisPartidos(){
 
-    /*    Cursor cursorPry = db.rawQuery("SELECT "+ProyectoDBMetadata.TablaMisPartidosMetadata._ID+" FROM "+ProyectoDBMetadata.TABLA_MISPARTIDOS,null);
-        Integer idPry= 0;
-        String s[] = new String[cursorPry.getCount()];
-        int aux = 0;
-        if(cursorPry.moveToFirst()){
-            do{
-                idPry=cursorPry.getInt(0);
-                s[aux]= idPry.toString();
-                aux++;
-            }while(cursorPry.moveToNext());
-        }
-        else {s[aux]=idPry.toString();}
-
-        cursorPry.close();*/
         Cursor cursor = null;
         cursor = db.rawQuery(_SQL_MISPARTIDOS,null);  //new String[]{idPry.toString()}
      return cursor;
+    }
+
+    /*------------------------------------- existe Mi Partido ------------------------------------*/
+    //public Partido(Integer id, Integer lig, Integer cat, String e1, String e2, String f, String h, String l, String not)
+    public boolean existeMiPartido(Integer lig, Integer cat, String e1, String e2, String f, String h){
+
+        f = f+" - "+h;
+        Cursor cursor = null;
+        cursor = db.rawQuery(_SQL_PARTIDO_X, new String[]{lig.toString(),cat.toString(),e1,e2,f});
+        if(cursor.moveToFirst()){  cursor.close();  return true;    }
+        else{  cursor.close();  return false;    }
     }
 
     /*-------------------------------------- Notificar -------------------------------------------*/
@@ -109,16 +124,16 @@ public class ProyectoDAO {
     }
 
     /*---------------------------------- insertarPartido -----------------------------------------*/
-/*    public void insertarPartido(Partido p){
+    public void insertarPartido(Partido p){
 
         ContentValues aInsertar = new ContentValues();
-
         aInsertar.put(ProyectoDBMetadata.TablaMisPartidosMetadata._ID,p.getId());
         aInsertar.put(ProyectoDBMetadata.TablaMisPartidosMetadata.LIGA,p.getLiga());
         aInsertar.put(ProyectoDBMetadata.TablaMisPartidosMetadata.CATEGORIA,p.getCategoria());
         aInsertar.put(ProyectoDBMetadata.TablaMisPartidosMetadata.EQUIPO1,p.getEquipo1());
         aInsertar.put(ProyectoDBMetadata.TablaMisPartidosMetadata.EQUIPO2,p.getEquipo2());
         aInsertar.put(ProyectoDBMetadata.TablaMisPartidosMetadata.FECHA,p.getFecha());
+        aInsertar.put(ProyectoDBMetadata.TablaMisPartidosMetadata.FECHA,p.getFecha()+" - "+p.getHora()); //dd:mm:aaaa - hh:mm
         aInsertar.put(ProyectoDBMetadata.TablaMisPartidosMetadata.LUGAR,p.getLugar());
         aInsertar.put(ProyectoDBMetadata.TablaMisPartidosMetadata.NOTIFICAR,p.getNotificar());
 
@@ -130,9 +145,10 @@ public class ProyectoDAO {
     }
 
     /*---------------------------------- actualizarPartido ---------------------------------------*/
- /*   public void actualizarPartido(Partido p){
+    // único que no probé pero que sé debería andar
+    public void actualizarPartido(Partido p){
         /**Establecemos los valores**/
-/*        ContentValues aActualizar = new ContentValues();
+        ContentValues aActualizar = new ContentValues();
 
         aActualizar.put(ProyectoDBMetadata.TablaMisPartidosMetadata._ID,p.getId());
         aActualizar.put(ProyectoDBMetadata.TablaMisPartidosMetadata.LIGA,p.getLiga());
@@ -143,15 +159,15 @@ public class ProyectoDAO {
         aActualizar.put(ProyectoDBMetadata.TablaMisPartidosMetadata.LUGAR,p.getLugar());
         aActualizar.put(ProyectoDBMetadata.TablaMisPartidosMetadata.NOTIFICAR,p.getNotificar());
 
-        db.update(ProyectoDBMetadata.TABLA_MISPARTIDOS, aActualizar, ProyectoDBMetadata.TablaMisPartidosMetadata._ID + "=" + p.getId(), null);
+        db.update(ProyectoDBMetadata.TABLA_MISPARTIDOS, aActualizar, ProyectoDBMetadata.TablaMisPartidosMetadata._ID + " = " + p.getId(), null);
     }
 
     /*----------------------------------- eliminar Partido ---------------------------------------*/
- /*   public void eliminarPartido(Partido p){
+   public void eliminarPartido(Integer idPartido){
 
-        db.delete(ProyectoDBMetadata.TABLA_MISPARTIDOS, ProyectoDBMetadata.TablaMisPartidosMetadata._ID + " = " + p.getId().toString(),null);
+        db.delete(ProyectoDBMetadata.TABLA_MISPARTIDOS, ProyectoDBMetadata.TablaMisPartidosMetadata._ID + " = " + idPartido.toString(),null);
     }
-*/
+
     /*--------------------------------- lista Preferencias ---------------------------------------*/
     public Cursor listaPreferencias(){
 
@@ -194,9 +210,20 @@ public class ProyectoDAO {
     public Integer getLiga(){
         Integer idLiga = 0;
         Cursor cursor = null;
-        cursor = db.rawQuery(_SQL_MISPREFERENCIAS,null);  //new String[]{idPry.toString()}
+        cursor = db.rawQuery(_SQL_MISPREFERENCIAS,null);
         if(cursor.moveToFirst()){ idLiga = cursor.getInt(1);}
         cursor.close();
         return idLiga;
+    }
+
+    /*--------------------------------------- get Last Id ----------------------------------------*/
+    public Integer getLastId(){
+
+        Integer id = 0;
+        Cursor cursor = null;
+        cursor = db.rawQuery(_SQL_MIS_ID,null);
+        if(cursor.moveToLast()){ id = cursor.getInt(0);}
+        cursor.close();
+        return id;
     }
 }
