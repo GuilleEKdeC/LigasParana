@@ -132,8 +132,8 @@ private static final String _SQL_MIS_ID =
         aInsertar.put(ProyectoDBMetadata.TablaMisPartidosMetadata.CATEGORIA,p.getCategoria());
         aInsertar.put(ProyectoDBMetadata.TablaMisPartidosMetadata.EQUIPO1,p.getEquipo1());
         aInsertar.put(ProyectoDBMetadata.TablaMisPartidosMetadata.EQUIPO2,p.getEquipo2());
-        aInsertar.put(ProyectoDBMetadata.TablaMisPartidosMetadata.FECHA,p.getFecha());
-        aInsertar.put(ProyectoDBMetadata.TablaMisPartidosMetadata.FECHA,p.getFecha()+" - "+p.getHora()); //dd:mm:aaaa - hh:mm
+        String f = p.getFecha()+" - "+p.getHora();
+        aInsertar.put(ProyectoDBMetadata.TablaMisPartidosMetadata.FECHA,f); //dd:mm:aaaa - hh:mm
         aInsertar.put(ProyectoDBMetadata.TablaMisPartidosMetadata.LUGAR,p.getLugar());
         aInsertar.put(ProyectoDBMetadata.TablaMisPartidosMetadata.NOTIFICAR,p.getNotificar());
 

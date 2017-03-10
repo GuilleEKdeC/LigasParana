@@ -23,16 +23,16 @@ public class AdaptadorPartidos extends ArrayAdapter<Partido>{
 
     final FragmentManager fragmentManager;
     Context contexto;
-    ArrayList<Partido> partidos;
+    public ArrayList<Partido> partidos;
     LayoutInflater inflater;
     String cancha;
     ConfirmacionDialogFragmentListener listener;
-    int posicion;
     ProyectoDAO proyectoDAO;
+    Partido partido;
 
     /*----------------------------------- Constructor --------------------------------------------*/
     //Constructor del AdaptadorDias donde se le pasaran por parametro el contexto de la aplicacion y el ArrayList de los Partidos
-    public AdaptadorPartidos(FragmentManager fragmentManager, final Context context, ArrayList<Partido> partidos) {
+    public AdaptadorPartidos(FragmentManager fragmentManager, final Context context, final ArrayList<Partido> partidos) {
         //Llamada al constructor de la clase superior donde requiere el contexto, el layout y el arraylist
         super(context, R.layout.fila_fechas, partidos);
         inflater= LayoutInflater.from(context);
@@ -44,12 +44,13 @@ public class AdaptadorPartidos extends ArrayAdapter<Partido>{
             public void onPositiveClick() {
                 proyectoDAO = new ProyectoDAO(contexto);
                 proyectoDAO.open();
-                Partido p = Partido.PARTIDOS_MOCK[posicion];
+                Partido p = partido;
                 boolean existe = proyectoDAO.existeMiPartido(p.getLiga(),p.getCategoria(),p.getEquipo1(),p.getEquipo2(),p.getFecha(),p.getHora());
                 if (existe)  Toast.makeText(contexto, "Este Partido ya figura en 'MisPartidos'", Toast.LENGTH_LONG).show();
                 else {
                     p.setId(proyectoDAO.getLastId()+1);
                     proyectoDAO.insertarPartido(p);
+                    proyectoDAO.close();
                 }
             }
 
@@ -63,7 +64,6 @@ public class AdaptadorPartidos extends ArrayAdapter<Partido>{
     //la vista (View) del elemento mostrado y el conjunto de vistas.
     public View getView(final int position, View convertView, ViewGroup parent) {
 
-        posicion = position;
         View item = convertView;
         //Creamos esta variable para almacenar posteriormente en el, la vista que ha dibujado
         ViewHolderPartidos viewholder;
@@ -101,7 +101,6 @@ public class AdaptadorPartidos extends ArrayAdapter<Partido>{
             public void onClick(View v) {
                 cancha = partidos.get(position).getLugar();
                 cancha = cancha.substring(0,cancha.length()-3);
-Toast.makeText(contexto, "Cancha:"+cancha, Toast.LENGTH_SHORT).show();
                 Intent mapa = new Intent(v.getContext(),ActividadMapas.class);
                 switch(cancha) {
                     case "Patronato":
@@ -146,10 +145,11 @@ Toast.makeText(contexto, "Cancha:"+cancha, Toast.LENGTH_SHORT).show();
         });
         // Fin listenner Mapa -------------------------------------------------
 
-                // Seteo del listenner sobre partido, para incorporarlo al listado "MisPartidos"
+       // Seteo del listenner sobre partido, para incorporarlo al listado "MisPartidos"
        item.setOnLongClickListener(new View.OnLongClickListener() {
            @Override
            public boolean onLongClick(View v) {
+               partido = partidos.get(position);
                //creamos el fragmento
                ConfirmacionDialogFragment confirmacionDialog = ConfirmacionDialogFragment.newInstance("Agregar Partido en 'Mis Partidos'?");
                //definimos los listener
@@ -162,5 +162,9 @@ Toast.makeText(contexto, "Cancha:"+cancha, Toast.LENGTH_SHORT).show();
 
         //Se devuelve ya la vista nueva o reutilizada que ha sido dibujada
         return (item);
+    }
+
+    public ArrayList<Partido> getPartidos(){
+        return this.partidos;
     }
 }

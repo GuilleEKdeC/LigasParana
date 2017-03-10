@@ -285,10 +285,9 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
                 startActivity(intActCat.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP));
                 break;
             case R.id.nav_equipo:
-                Toast.makeText(getBaseContext(), "Clickee Equipo", Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(), "Click Equipo", Toast.LENGTH_LONG).show();
                 break;
             case R.id.nav_misPartidos:
-                Toast.makeText(getBaseContext(), "Clickee MisPartidos", Toast.LENGTH_LONG).show();
                 Intent imP = new Intent(ActividadPrincipal.this,ActividadMisPartidos.class);
                 startActivity(imP);
                 break;
@@ -297,10 +296,8 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
                 Intent mapa = new Intent(ActividadPrincipal.this,ActividadMapas.class);
                 startActivity(mapa);
                 Toast.makeText(getBaseContext(), "Mi Posición: ¡Esta en Reparación!", Toast.LENGTH_LONG).show();
-
                 break;
             case R.id.nav_perfil:
-                Toast.makeText(getBaseContext(), "Clickee Perfil", Toast.LENGTH_LONG).show();
                 startActivity(new Intent(ActividadPrincipal.this,Opciones.class));
                 break;
 

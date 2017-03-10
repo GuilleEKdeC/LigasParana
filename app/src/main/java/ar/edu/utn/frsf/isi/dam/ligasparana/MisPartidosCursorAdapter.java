@@ -38,6 +38,7 @@ public class MisPartidosCursorAdapter extends CursorAdapter {
         this.myDao = dao;
         this.contexto = context;
         this.fragmentManager = fragmentManager;
+        this.cursor = c;
         this.listener = new ConfirmacionDialogFragment.ConfirmacionDialogFragmentListener() {
 
             public void onPositiveClick() {
@@ -58,6 +59,7 @@ public class MisPartidosCursorAdapter extends CursorAdapter {
 
         inflador = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View vista = inflador.inflate(R.layout.fila_mispartidos, viewGroup, false);
+        this.cursor = cursor;
         return vista;
     }
 
@@ -121,7 +123,7 @@ public class MisPartidosCursorAdapter extends CursorAdapter {
     }//Fin Bind View
 
     /*-------------------------------------- Handler ---------------------------------------------*/
-    Handler handlerRefresh = new Handler(Looper.getMainLooper()) {
+    public Handler handlerRefresh = new Handler(Looper.getMainLooper()) {
         @Override
         public void handleMessage(Message inputMessage) {
             MisPartidosCursorAdapter.this.changeCursor(myDao.listaMisPartidos());
