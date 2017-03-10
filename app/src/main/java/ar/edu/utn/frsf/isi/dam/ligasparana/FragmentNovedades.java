@@ -44,7 +44,7 @@ public class FragmentNovedades extends Fragment {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
 
         tv_titulo.setText(prefs.getString("title","Noticias de la Semana"));
-        tv_cuerpo.setText(prefs.getString("noticia","Actualmente no hay nuevas novedades")+". \n\n\t\t\t\t\t\t\t"+prefs.getString("usuario","Atte. la Comisión Directiva"));
+        tv_cuerpo.setText(prefs.getString("noticia","Actualmente no hay nuevas novedades")+". \n\n\t\t\t\t\t\t\t\t"+prefs.getString("usuario","Atte. la Comisión Directiva"));
 
 
         return v;

@@ -1,8 +1,11 @@
 package ar.edu.utn.frsf.isi.dam.ligasparana;
+import android.*;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.location.Location;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -11,9 +14,12 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.provider.SyncStateContract;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -29,13 +35,17 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
+
 import ar.edu.utn.frsf.isi.dam.ligasparana.Modelo.Categoria;
 import ar.edu.utn.frsf.isi.dam.ligasparana.Modelo.Liga;
 import ar.edu.utn.frsf.isi.dam.ligasparana.Modelo.Usuario;
 import ar.edu.utn.frsf.isi.dam.ligasparana.dao.ProyectoDAO;
 import ar.edu.utn.frsf.isi.dam.ligasparana.dao.ProyectoDBMetadata;
 
-public class ActividadPrincipal extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener/*, MiFragmentPagerAdapter.OnFragmentSelectedListener*/{
+public class ActividadPrincipal extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
 
     private ProyectoDAO proyectoDAO;
@@ -108,7 +118,7 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
         /*=========================================================================================*/
 
         //Tabs + ViewPager
-        Toolbar toolbarFrag = (Toolbar) findViewById(R.id.appbar); //toolbar   //appbar
+        Toolbar toolbarFrag = (Toolbar) findViewById(R.id.toolbar); //toolbar   //appbar
         setSupportActionBar(toolbarFrag);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
@@ -158,7 +168,6 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
         textEmail.setText(correoUsuario);
         textCategoriaSeleccionada.setText(ligaSeleccionada);
         textLigaSeleccionada.setText(categoriaSeleccionada);
-        /*=========================================================================================*/
     }//Fin ON CREATE
 /*
     /*-------------------------------------- On Resume -------------------------------------------*/
@@ -282,8 +291,10 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
                 startActivity(imP);
                 break;
             case R.id.nav_localizar:
-                startActivity(new Intent(ActividadPrincipal.this,ActividadMapas.class)); //BORRAR!!!!!
-                Toast.makeText(getBaseContext(), "Clickee Locaizar", Toast.LENGTH_LONG).show();
+                //Intent mapa = new Intent(ActividadPrincipal.this,Localizar.class);
+                Intent mapa = new Intent(ActividadPrincipal.this,ActividadMapas.class);
+                startActivity(mapa);
+                Toast.makeText(getBaseContext(), "Mi Posición: ¡Esta en Reparación!", Toast.LENGTH_LONG).show();
 
                 break;
             case R.id.nav_perfil:
