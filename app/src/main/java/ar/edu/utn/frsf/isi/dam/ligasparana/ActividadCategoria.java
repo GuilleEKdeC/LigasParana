@@ -2,19 +2,16 @@ package ar.edu.utn.frsf.isi.dam.ligasparana;
 
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
-
 import ar.edu.utn.frsf.isi.dam.ligasparana.Modelo.Categoria;
 import ar.edu.utn.frsf.isi.dam.ligasparana.dao.ProyectoDAO;
-import ar.edu.utn.frsf.isi.dam.ligasparana.dao.ProyectoDBMetadata;
+
 
 public class ActividadCategoria extends AppCompatActivity{
     /**********************************

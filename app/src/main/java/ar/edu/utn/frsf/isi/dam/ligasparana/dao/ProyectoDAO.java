@@ -186,6 +186,7 @@ public class ProyectoDAO {
         Cursor cursor = null;
         cursor = db.rawQuery(_SQL_MISPREFERENCIAS,null);  //new String[]{idPry.toString()}
         if(cursor.moveToFirst()){ idCat = cursor.getInt(2);}
+        cursor.close();
         return idCat;
     }
 
@@ -195,6 +196,7 @@ public class ProyectoDAO {
         Cursor cursor = null;
         cursor = db.rawQuery(_SQL_MISPREFERENCIAS,null);  //new String[]{idPry.toString()}
         if(cursor.moveToFirst()){ idLiga = cursor.getInt(1);}
+        cursor.close();
         return idLiga;
     }
 }

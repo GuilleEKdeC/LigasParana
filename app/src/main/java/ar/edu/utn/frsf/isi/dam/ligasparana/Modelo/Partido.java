@@ -1,8 +1,5 @@
 package ar.edu.utn.frsf.isi.dam.ligasparana.Modelo;
 
-/**
- * Created by mdominguez on 06/10/16.
- */
 public class Partido {
 
     //-------------------------------------------Variables--------------------------------------------//

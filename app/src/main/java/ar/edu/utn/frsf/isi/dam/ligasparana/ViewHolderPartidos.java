@@ -1,9 +1,7 @@
 package ar.edu.utn.frsf.isi.dam.ligasparana;
 
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 //Esta clase se usa para almacenar los TextView, la ImageView y el CheckBox de una vista y es donde esta el "truco" para que las vistas se guarden
