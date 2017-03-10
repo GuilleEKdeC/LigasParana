@@ -56,12 +56,13 @@ public class FragmentContactos extends Fragment {
                 startActivity(callIntent);
             }
         });
-/*
+
         btnEnviarMail.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
+                Toast.makeText(getActivity().getBaseContext(), "Lo sentimos, NO hay conexión", Toast.LENGTH_LONG).show();
                 //Se obtienen los campos introducidos por el usuario
-                final EditText destinatario = (EditText) v.findViewById(R.id.txtmailuser);
+            /*    final EditText destinatario = (EditText) v.findViewById(R.id.txtmailuser);
                 String dest = destinatario.getText().toString();
 
                 final EditText asunto = (EditText) findViewById(R.id.txtmailsubject);
@@ -81,9 +82,9 @@ public class FragmentContactos extends Fragment {
 
                 //Se lanza la actividad
                 startActivity(emailIntent);
-           }
+         */  }
         });
-*/
+
         return v;
     }
 

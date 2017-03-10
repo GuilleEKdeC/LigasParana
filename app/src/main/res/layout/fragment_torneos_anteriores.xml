@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:padding="16dp"
     tools:context=".FragmentTorneosAnteriores"
-    android:background="?attr/colorControlHighlight">
+    android:background="@color/windowBackground">
 
     <ListView
         android:layout_width="match_parent"
@@ -14,7 +14,7 @@
         android:layout_gravity="center_horizontal"
         android:textStyle="bold|italic"
         android:typeface="serif"
-        android:background="#d3e8f2"
-        android:textColor="#691515" />
+        android:background="@color/windowBackground"
+        android:textColor="@color/colorPrimaryDark" />
 
 </FrameLayout>

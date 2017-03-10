@@ -14,7 +14,7 @@ import android.widget.Toast;
 public class MiFragmentPagerAdapter extends FragmentPagerAdapter /*implements FragmentResultados.OnArticuloSelectedListener*/{
 
 
-    final int PAGE_COUNT = 7;
+    final int PAGE_COUNT = 9;
 
     private Context c;
 //    private MiFragmentPagerAdapter.OnFragmentSelectedListener listenerFragment;
@@ -56,10 +56,10 @@ public class MiFragmentPagerAdapter extends FragmentPagerAdapter /*implements Fr
                 f = FragmentEquipos.newInstance();
                 break;
             case 7:
-                //f = FragmentTorneosAnteriores.newInstance();
+                f = FragmentTorneosAnteriores.newInstance();
                 break;
             case 8:
-               // f = FragmentContactos.newInstance();
+                f = FragmentContactos.newInstance();
                 break;
         }
 
@@ -72,34 +72,5 @@ public class MiFragmentPagerAdapter extends FragmentPagerAdapter /*implements Fr
         // Generate title based on item position
         return tabTitles[position];
     }
-
-
- /*   @Override
-    public void onArticuloSelected(Context c, String s) {
-        c = c;
-        Toast.makeText(c, "Clickieeeeeeeeeeeee spinner RESULTADOS", Toast.LENGTH_LONG).show();
-
-    }
-
-    /*----------------------*/
- /*   public void onListItemClick(ListView l, View v, int pos, long id){
-        listenerFragment.onFragmentSelected(c,"Hola Mundo");
-    }
-
- /*   public interface OnFragmentSelectedListener {
-        void onFragmentSelected(Context c, String s);
-    }
-
-
-    public void onAttach(Activity activity){
-      //  super.onAttach(activity);
-        try{
-            listenerFragment = (MiFragmentPagerAdapter.OnFragmentSelectedListener) activity;
-        } catch (ClassCastException e){}
-    }
-
-
-    /*----------------------*/
-
 
 }
