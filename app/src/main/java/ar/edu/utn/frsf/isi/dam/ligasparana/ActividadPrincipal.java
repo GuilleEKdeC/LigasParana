@@ -121,7 +121,7 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
         /*=========================================================================================*/
 
         //Tabs + ViewPager
-        Toolbar toolbarFrag = (Toolbar) findViewById(R.id.toolbar); //toolbar   //appbar
+        Toolbar toolbarFrag = (Toolbar) findViewById(R.id.appbar); //toolbar   //appbar
         setSupportActionBar(toolbarFrag);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
