@@ -22,10 +22,13 @@
             android:id="@+id/tv_descripcion"
             android:layout_width="300dp"
             android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:backgroundTint="@color/colorPrimary"
             android:elevation="24dp"
             android:gravity="center"
             android:text="Liga de Veteranos "
             android:textAlignment="center"
+            android:textColor="@color/texto1"
             android:textSize="18sp"
             android:textStyle="bold" /><!--
 

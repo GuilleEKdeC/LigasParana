@@ -85,8 +85,8 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
                 startActivity(categoria);
             }
             if(cursor.getInt(cursor.getColumnIndex(ProyectoDBMetadata.TablaMisPreferenciasMetadata.LIGA)) == 0){            // Si aún no se eligió LIGA
-            //   ligas = new Intent().setClass(ActividadPrincipal.this, ActividadLiga.class);                    // Comenzar la actividad de seleccionar LIGA
-                ligas = new Intent(ActividadPrincipal.this,ActividadLiga.class);
+            //   ligas = new Intent().setClass(ActividadPrincipal.this, ActividadLiga.class);
+                ligas = new Intent(ActividadPrincipal.this,ActividadLiga.class);                                       // Comenzar la actividad de seleccionar LIGA
                 startActivity(ligas);
             }
         }

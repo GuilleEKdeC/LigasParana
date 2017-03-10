@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#388E3C</color>
-    <color name="colorPrimaryDark">#1B5E20</color>
+    <color name="colorPrimary">#388e3c</color>
+    <color name="colorPrimaryDark">#09530f</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="windowBackground">#C8E6C9</color>
+    <color name="windowBackground">#c8e6c9</color>
     <color name="windowBackground1">#b5d5b7</color>
     <color name="windowBackground2">#e1f7e2</color>
+    <color name="texto1">#08370c</color>
+    <color name="novedades_oscuro1">#144b14</color>
+    <color name="texto_novedades_claro1">#8eda50</color>
 
 </resources>
