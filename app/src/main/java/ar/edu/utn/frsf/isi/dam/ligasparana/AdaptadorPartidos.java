@@ -97,39 +97,39 @@ Toast.makeText(contexto, "Cancha:"+cancha, Toast.LENGTH_SHORT).show();
                 Intent mapa = new Intent(v.getContext(),ActividadMapas.class);
                 switch(cancha) {
                     case "Patronato":
-                        mapa.putExtra("Latitud",-31.742945);
-                        mapa.putExtra("Longitud",-60.508737);
+                        mapa.putExtra("Longitud",-31.742698);
+                        mapa.putExtra("Latitud", -60.509079);
                         mapa.putExtra("Título","Patronato");
                         mapa.putExtra("Dirección","Padre Bartolomé Grella 874, Paraná");
                         break;
                     case "OroVerde":
-                        mapa.putExtra("Latitud",-31.821282);
-                        mapa.putExtra("Longitud",-60.514467);
+                        mapa.putExtra("Longitud",-31.821282);
+                        mapa.putExtra("Latitud",-60.514467);
                         mapa.putExtra("Título","OroVerde");
                         mapa.putExtra("Dirección","El Trebol, Oro Verde, Entre Ríos");
                         break;
                     case "Paracao":
-                        mapa.putExtra("Latitud",-31.769972);
-                        mapa.putExtra("Longitud",-60.533009);
+                        mapa.putExtra("Longitud",-31.769972);
+                        mapa.putExtra("Latitud",-60.533009);
                         mapa.putExtra("Título","Paracao");
                         mapa.putExtra("Dirección","Juan Baez 745 -748, 3100 Paraná");
                         break;
                     case "Paraná":
-                        mapa.putExtra("Latitud",-31.746394);
-                        mapa.putExtra("Longitud",-60.515724);
+                        mapa.putExtra("Longitud",-31.746394);
+                        mapa.putExtra("Latitud",-60.515724);
                         mapa.putExtra("Título","Paraná");
                         mapa.putExtra("Dirección","José Ruperto Pérez 273, Paraná");
                         break;
                     case "Chapino":
-                        mapa.putExtra("Latitud",-31.780638);
-                        mapa.putExtra("Longitud",-60.452317);
-                        mapa.putExtra("Título","Chapino");
+                        mapa.putExtra("Longitud",-31.780638);
+                        mapa.putExtra("Latitud",-60.452317);
+                        mapa.putExtra("Título","Complejo O. Chapino");
                         mapa.putExtra("Dirección","Av. Jorge Newbery s/n");
                         break;
                     case "BajadaG":
-                        mapa.putExtra("Latitud",-31.711557);
-                        mapa.putExtra("Longitud",-60.558824);
-                        mapa.putExtra("Título","BajadaG");
+                        mapa.putExtra("Longitud",-31.711557);
+                        mapa.putExtra("Latitud",-60.558824);
+                        mapa.putExtra("Título","Bajada Grande");
                         mapa.putExtra("Dirección","Av. Larramendi 2783");
                         break;
                 }

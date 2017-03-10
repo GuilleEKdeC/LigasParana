@@ -1,7 +1,7 @@
 package ar.edu.utn.frsf.isi.dam.ligasparana;
 
 import android.content.Intent;
-import android.location.Location;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
@@ -10,6 +10,7 @@ import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.Projection;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
@@ -18,74 +19,91 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class ActividadMapas extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mapa;
-    private Intent intent_mapa;
-    double latitud;
-    double longitud;
+    Double latitud;
+    Double longitud;
     String titulo;
     String direccion;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.actividad_mapa);
-        Toast.makeText(this, "En MAPA!!!", Toast.LENGTH_SHORT).show();
+
+
+
         SupportMapFragment mapFragment = (SupportMapFragment)
                 getSupportFragmentManager()
                         .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        intent_mapa = getIntent();
-        intent_mapa.getDoubleExtra("Latitud",latitud);
-        intent_mapa.getDoubleExtra("Longitud",longitud);
+        Intent intent_mapa = getIntent();
+
+        longitud=intent_mapa.getExtras().getDouble("Longitud");
+        latitud=intent_mapa.getExtras().getDouble("Latitud");
+
+        Toast.makeText(this, "Long:"+longitud+" Lat:"+latitud, Toast.LENGTH_SHORT).show();
+
         titulo = intent_mapa.getStringExtra("Título");
         direccion = intent_mapa.getStringExtra("Dirección");
-
-
-  /*      latitud = -31.742945;
-        longitud = -60.508737;
-        titulo = "Patronato";
-        direccion = "Padre Bartolomé Grella 874, Paraná";*/
+        // Fin manejo del Intent
     }
 
 
-//    @Override
+    @Override
     public void onMapReady(GoogleMap map) {
         mapa = map;
+        LatLng latlng = new LatLng(longitud,latitud);
+        //moverA(latitud,longitud,titulo,direccion);
+        CameraUpdate camUpd1 =
+                CameraUpdateFactory
+                        .newLatLngZoom(latlng, 17);
+        mapa.moveCamera(camUpd1);
 
-        moverA(latitud,longitud,titulo,direccion);  //En un futuro se usara esta funcion, para localizar las distintas ligas. HOY tenemos solo una.
+        mapa.addMarker(new MarkerOptions()
+                .position(latlng)
+                .title(titulo)
+                .snippet(direccion));
 
-        mapa.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+        mapa.setMapType(GoogleMap.MAP_TYPE_NORMAL); //MAP_TYPE_SATELLITE);//MAP_TYPE_NORMAL);
         mapa.getUiSettings().setZoomControlsEnabled(true);
-
-
         mapa.getUiSettings().setMapToolbarEnabled(false);
-//Evento click en el marcador
-        /*
-        mapa.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(Marker marker) {
-                Toast.makeText(
-                        MainActivity.this,
-                        "Marcador pulsado:\n" +
-                                marker.getTitle(),
-                        Toast.LENGTH_SHORT).show();
 
-                return true;
+/*
+        mapa.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            public void onMapClick(LatLng point) {
+                Projection proj = mapa.getProjection();
+                Point coord = proj.toScreenLocation(point);
+
+                Toast.makeText(
+                        ActividadMapas.this,
+                        "Click\n" +
+                                "Lat: " + point.latitude + "\n" +
+                                "Lng: " + point.longitude + "\n" +
+                                "X: " + coord.x + " - Y: " + coord.y,
+                        Toast.LENGTH_SHORT).show();
             }
         });
-        */
-
-
+    */
     }
 
-    private void moverA(double Lat, double Lng, String titulo, String dir)
-    {
-        LatLng latlng = new LatLng(Lat,Lng);
+ /*  private void moverA(Double Lat, Double Lng, String titulo, String dir) {
+       LatLng latlng = new LatLng(Lat, Lng);
 
+       CameraUpdate camUpd1 =
+               CameraUpdateFactory
+                       .newLatLngZoom(latlng, 17);
+
+       mapa.addMarker(new MarkerOptions()
+               .position(latlng)//new LatLng(Lat,Lng))
+               .title(titulo)
+               .snippet(dir));
+
+       mapa.moveCamera(camUpd1);
+   }
+
+/*
         CameraPosition camPos = new CameraPosition.Builder()
-                .target(latlng)   //Centramos el mapa en Madrid
+                .target(latlng)   //Centramos el mapa en en el lugar que queremos
                 .zoom(17)         //Establecemos el zoom en 17
-               // .bearing(0)      //Establecemos la orientación con el noreste arriba
-                //.tilt(0)         //Bajamos el punto de vista de la cámara 70 grados
                 .build();
 
         CameraUpdate camUpd3 =
@@ -93,8 +111,9 @@ public class ActividadMapas extends AppCompatActivity implements OnMapReadyCallb
 
         mapa.animateCamera(camUpd3);
         mapa.addMarker(new MarkerOptions()
-                .position(new LatLng(Lat,Lng))
+                .position(latlng)//new LatLng(Lat,Lng))
                 .title(titulo)
                 .snippet(dir));
-    }
+   }
+ */
 }
