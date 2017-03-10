@@ -1,6 +1,6 @@
 package ar.edu.utn.frsf.isi.dam.ligasparana.Modelo;
-import java.io.Serializable;
 
+import java.io.Serializable;
 
 public class Usuario implements Serializable {
 

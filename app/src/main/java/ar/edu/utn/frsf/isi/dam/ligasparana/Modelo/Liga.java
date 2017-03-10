@@ -8,7 +8,6 @@ public class Liga {
 //-------------------------------------------Variables--------------------------------------------//
     private Integer id;
     private String nombre;
-    //private Integer logotipo;
     private int logotipo;
 
     //---------------------------------------Constructor------------------------------------------//

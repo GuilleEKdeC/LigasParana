@@ -1,11 +1,8 @@
 package ar.edu.utn.frsf.isi.dam.ligasparana;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.NotificationCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -93,7 +90,6 @@ public class AdaptadorPartidos extends ArrayAdapter<Partido>{
             public void onClick(View v) {
                 cancha = partidos.get(position).getLugar();
                 cancha = cancha.substring(0,cancha.length()-3);
-Toast.makeText(contexto, "Cancha:"+cancha, Toast.LENGTH_SHORT).show();
                 Intent mapa = new Intent(v.getContext(),ActividadMapas.class);
                 switch(cancha) {
                     case "Patronato":
@@ -138,8 +134,8 @@ Toast.makeText(contexto, "Cancha:"+cancha, Toast.LENGTH_SHORT).show();
         });
         // Fin listenner Mapa -------------------------------------------------
 
-                // Seteo del listenner sobre partido, para incorporarlo al listado "MisPartidos"
-       item.setOnLongClickListener(new View.OnLongClickListener() {
+        // Seteo del listenner sobre partido, para incorporarlo al listado "MisPartidos"
+        item.setOnLongClickListener(new View.OnLongClickListener() {
            @Override
            public boolean onLongClick(View v) {
                partido = v;
@@ -151,7 +147,7 @@ Toast.makeText(contexto, "Cancha:"+cancha, Toast.LENGTH_SHORT).show();
                confirmacionDialog.show(fragmentManager,null);
                return false;
            }
-       });
+        });
 
         //Se notifica al adaptador de que el ArrayList que tiene asociado ha sufrido cambios (forzando asi a ir al metodo getView())
        //adaptador.notifyDataSetChanged();
