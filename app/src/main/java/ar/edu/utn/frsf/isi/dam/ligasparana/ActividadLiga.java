@@ -21,7 +21,6 @@ public class ActividadLiga extends AppCompatActivity {
     private ListView listVw;
     private ArrayList<Liga> listaLigas;
     private AdaptadorDeLigas adaptador;
-    private Context contexto;
     private Intent intActCat;
     private ProyectoDAO myDao;
 
@@ -30,7 +29,6 @@ public class ActividadLiga extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.o_2_actividad_ligas);
-        contexto=getBaseContext();
 
         listVw = (ListView) findViewById(R.id.lista_ligas);
 

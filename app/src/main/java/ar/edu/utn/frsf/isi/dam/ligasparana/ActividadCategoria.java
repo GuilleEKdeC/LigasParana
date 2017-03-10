@@ -21,10 +21,7 @@ public class ActividadCategoria extends AppCompatActivity{
     private ListView listVw;
     private ArrayList<Categoria> listaCategorias;
     private AdaptadorDeCategorias adaptador;
-    private Context contexto;
     private Intent intentCategoria;
-    private Intent intentDatosCategoria;
-    private String idLiga;
     private ProyectoDAO myDao;
 
 
@@ -32,15 +29,11 @@ public class ActividadCategoria extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         setContentView(R.layout.o_3_actividad_categ);
 
         // Manejo del Intent
-        intentCategoria = getIntent();
-        idLiga = intentCategoria.getStringExtra("idLiga");
+//        intentCategoria = getIntent();
         // Fin manejo del Intent
-
-        contexto=getBaseContext();
 
         listVw = (ListView) findViewById(R.id.lista_categorias);
 

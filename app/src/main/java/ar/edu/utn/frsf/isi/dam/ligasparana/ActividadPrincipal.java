@@ -52,8 +52,6 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
     private Intent bienvenida;
     private Intent ligas;
     private Intent categoria;
-    private Integer idLiga;
-    private Integer idCategoria;
     private Cursor cursor;
     private long mLastPress = 0;	// Cuándo se pulsó atrás por última vez
     private long mTimeLimit = 2000;	// Límite de tiempo entre pulsaciones, en ms
@@ -77,26 +75,27 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.o_4_actividad_principal);
 
-        bienvenida = new Intent(ActividadPrincipal.this,ActividadPantallaBienvenida.class);
-        startActivity(bienvenida);
-
         //  manejo de sqlite para controlar la existencia de las elecciones de LIGA y CATEGORÍA ----
         proyectoDAO = new ProyectoDAO(ActividadPrincipal.this);
         proyectoDAO.open();
         cursor = proyectoDAO.listaPreferencias();
         if(cursor.moveToFirst()){   //si hay filas en el cursor
-            if(cursor.getInt(cursor.getColumnIndex(ProyectoDBMetadata.TablaMisPreferenciasMetadata.LIGA)) == 0){            // Si aún no se eligió LIGA
-                ligas = new Intent().setClass(ActividadPrincipal.this, ActividadLiga.class);                    // Comenzar la actividad de seleccionar LIGA
-                startActivity(ligas);
-            }
             if(cursor.getInt(cursor.getColumnIndex(ProyectoDBMetadata.TablaMisPreferenciasMetadata.CATEGORIA)) == 0){       // Si aún no se eligió CATEGORÏA
                 categoria = new Intent(ActividadPrincipal.this,ActividadCategoria.class);                             // Comenzar la actividad de seleccionar CATEGORÍA
-                startActivity(categoria.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP));
+                startActivity(categoria);
+            }
+            if(cursor.getInt(cursor.getColumnIndex(ProyectoDBMetadata.TablaMisPreferenciasMetadata.LIGA)) == 0){            // Si aún no se eligió LIGA
+            //   ligas = new Intent().setClass(ActividadPrincipal.this, ActividadLiga.class);                    // Comenzar la actividad de seleccionar LIGA
+                ligas = new Intent(ActividadPrincipal.this,ActividadLiga.class);
+                startActivity(ligas);
             }
         }
         else{
            // Toast.makeText(getBaseContext(), "VACIO", Toast.LENGTH_LONG).show();
         }
+
+        bienvenida = new Intent(ActividadPrincipal.this,ActividadPantallaBienvenida.class);
+        startActivity(bienvenida);
         // fin manejo sqlite -----------------------------------------------------------------------
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
