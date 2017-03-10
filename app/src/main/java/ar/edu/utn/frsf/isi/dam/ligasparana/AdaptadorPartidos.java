@@ -93,7 +93,7 @@ public class AdaptadorPartidos extends ArrayAdapter<Partido>{
             public void onClick(View v) {
                 cancha = partidos.get(position).getLugar();
                 cancha = cancha.substring(0,cancha.length()-3);
-Toast.makeText(contexto, "Cancha:"+cancha, Toast.LENGTH_SHORT).show();
+                Toast.makeText(contexto, "Cancha:"+cancha, Toast.LENGTH_SHORT).show();
                 Intent mapa = new Intent(v.getContext(),ActividadMapas.class);
                 switch(cancha) {
                     case "Patronato":

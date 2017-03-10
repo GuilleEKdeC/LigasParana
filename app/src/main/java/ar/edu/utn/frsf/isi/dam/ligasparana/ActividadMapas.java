@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -23,24 +25,31 @@ public class ActividadMapas extends AppCompatActivity implements OnMapReadyCallb
     Double longitud;
     String titulo;
     String direccion;
+    private Button btnOpciones;
+    private int mapaSeteado=0;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.actividad_mapa);
-
-
 
         SupportMapFragment mapFragment = (SupportMapFragment)
                 getSupportFragmentManager()
                         .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        btnOpciones = (Button)findViewById(R.id.btnOpciones);
+        btnOpciones.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cambiarOpciones();
+            }
+        });
         Intent intent_mapa = getIntent();
 
         longitud=intent_mapa.getExtras().getDouble("Longitud");
         latitud=intent_mapa.getExtras().getDouble("Latitud");
 
-        Toast.makeText(this, "Long:"+longitud+" Lat:"+latitud, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Long:"+longitud+" Lat:"+latitud, Toast.LENGTH_SHORT).show();
 
         titulo = intent_mapa.getStringExtra("Título");
         direccion = intent_mapa.getStringExtra("Dirección");
@@ -63,7 +72,7 @@ public class ActividadMapas extends AppCompatActivity implements OnMapReadyCallb
                 .title(titulo)
                 .snippet(direccion));
 
-        mapa.setMapType(GoogleMap.MAP_TYPE_NORMAL); //MAP_TYPE_SATELLITE);//MAP_TYPE_NORMAL);
+        mapa.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         mapa.getUiSettings().setZoomControlsEnabled(true);
         mapa.getUiSettings().setMapToolbarEnabled(false);
 
@@ -116,4 +125,17 @@ public class ActividadMapas extends AppCompatActivity implements OnMapReadyCallb
                 .snippet(dir));
    }
  */
+ private void cambiarOpciones()
+ {
+     if(mapaSeteado==1){
+         mapa.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+         mapa.getUiSettings().setZoomControlsEnabled(true);
+         mapaSeteado = 0;
+     }
+     else{
+         mapa.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+         mapa.getUiSettings().setZoomControlsEnabled(true);
+         mapaSeteado = 1;
+     }
+ }
 }
