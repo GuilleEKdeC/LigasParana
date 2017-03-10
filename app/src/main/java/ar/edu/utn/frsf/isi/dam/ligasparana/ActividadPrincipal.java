@@ -51,7 +51,7 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
     private ProyectoDAO proyectoDAO;
     private Intent bienvenida;
     private Intent ligas;
-    private Intent intentDatosCategoria;
+    private Intent categoria;
     private Integer idLiga;
     private Integer idCategoria;
     private Cursor cursor;
@@ -77,18 +77,21 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.o_4_actividad_principal);
 
+        bienvenida = new Intent(ActividadPrincipal.this,ActividadPantallaBienvenida.class);
+        startActivity(bienvenida);
+
         //  manejo de sqlite para controlar la existencia de las elecciones de LIGA y CATEGORÍA ----
         proyectoDAO = new ProyectoDAO(ActividadPrincipal.this);
         proyectoDAO.open();
         cursor = proyectoDAO.listaPreferencias();
         if(cursor.moveToFirst()){   //si hay filas en el cursor
             if(cursor.getInt(cursor.getColumnIndex(ProyectoDBMetadata.TablaMisPreferenciasMetadata.LIGA)) == 0){            // Si aún no se eligió LIGA
-                Intent mainIntent = new Intent().setClass(ActividadPrincipal.this, ActividadLiga.class);                    // Comenzar la actividad de seleccionar LIGA
-                startActivity(mainIntent);
+                ligas = new Intent().setClass(ActividadPrincipal.this, ActividadLiga.class);                    // Comenzar la actividad de seleccionar LIGA
+                startActivity(ligas);
             }
             if(cursor.getInt(cursor.getColumnIndex(ProyectoDBMetadata.TablaMisPreferenciasMetadata.CATEGORIA)) == 0){       // Si aún no se eligió CATEGORÏA
-                Intent intActCat= new Intent(ActividadPrincipal.this,ActividadCategoria.class);                             // Comenzar la actividad de seleccionar CATEGORÍA
-                startActivity(intActCat.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP));
+                categoria = new Intent(ActividadPrincipal.this,ActividadCategoria.class);                             // Comenzar la actividad de seleccionar CATEGORÍA
+                startActivity(categoria.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP));
             }
         }
         else{

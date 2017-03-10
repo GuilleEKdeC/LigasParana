@@ -24,16 +24,10 @@ public class ActividadPantallaBienvenida extends Activity {
 
         setContentView(R.layout.o_1_actividad_bienvenida);
 
+
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-
-                // Comenzar la siguiente actividad
-                Intent mainIntent = new Intent().setClass(
-                        ActividadPantallaBienvenida.this, ActividadLiga.class);
-                startActivity(mainIntent);
-
-                // Cierre la actividad por lo que el usuario no será capaz de volver a esta actividad pulsando el botón Atrás
                 finish();
             }
         };
@@ -41,6 +35,7 @@ public class ActividadPantallaBienvenida extends Activity {
         // Simular el proceso de carga
         Timer timer = new Timer();
         timer.schedule(task, SPLASH_SCREEN_DELAY);
+        //finish();
     }
 
 }
