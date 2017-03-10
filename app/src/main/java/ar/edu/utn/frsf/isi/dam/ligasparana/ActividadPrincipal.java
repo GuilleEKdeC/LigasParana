@@ -29,6 +29,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import ar.edu.utn.frsf.isi.dam.ligasparana.Modelo.Categoria;
+import ar.edu.utn.frsf.isi.dam.ligasparana.Modelo.Liga;
 import ar.edu.utn.frsf.isi.dam.ligasparana.Modelo.Usuario;
 import ar.edu.utn.frsf.isi.dam.ligasparana.dao.ProyectoDAO;
 import ar.edu.utn.frsf.isi.dam.ligasparana.dao.ProyectoDBMetadata;
@@ -66,26 +68,24 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
         setContentView(R.layout.o_4_actividad_principal);
 
         //  manejo de sqlite para controlar la existencia de las elecciones de LIGA y CATEGORÍA ----
-/*        proyectoDAO = new ProyectoDAO(ActividadPrincipal.this);
+        proyectoDAO = new ProyectoDAO(ActividadPrincipal.this);
         proyectoDAO.open();
         cursor = proyectoDAO.listaPreferencias();
         if(cursor.moveToFirst()){   //si hay filas en el cursor
             if(cursor.getInt(cursor.getColumnIndex(ProyectoDBMetadata.TablaMisPreferenciasMetadata.LIGA)) == 0){            // Si aún no se eligió LIGA
                 Intent mainIntent = new Intent().setClass(ActividadPrincipal.this, ActividadLiga.class);                    // Comenzar la actividad de seleccionar LIGA
                 startActivity(mainIntent);
-                fadapter.notifyDataSetChanged();
             }
             if(cursor.getInt(cursor.getColumnIndex(ProyectoDBMetadata.TablaMisPreferenciasMetadata.CATEGORIA)) == 0){       // Si aún no se eligió CATEGORÏA
                 Intent intActCat= new Intent(ActividadPrincipal.this,ActividadCategoria.class);                             // Comenzar la actividad de seleccionar CATEGORÍA
                 startActivity(intActCat.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP));
-                fadapter.notifyDataSetChanged();
             }
         }
         else{
            // Toast.makeText(getBaseContext(), "VACIO", Toast.LENGTH_LONG).show();
         }
         // fin manejo sqlite -----------------------------------------------------------------------
-*/
+
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         if(getIntent().hasExtra("title") && getIntent().hasExtra("noticia") && getIntent().hasExtra("usuario")){
             SharedPreferences.Editor editor = prefs.edit();
@@ -115,18 +115,7 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
         //Establecer el PageAdapter del componente ViewPager
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         fadapter = new MiFragmentPagerAdapter(getSupportFragmentManager());
-
-        /*--*/
-      /*  Spinner sp = (Spinner) fadapter.getItem(2).getActivity().findViewById(R.id.sp_resultados);
-        sp.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(ActividadPrincipal.this, "Clickieeeeeeeeeeeee spinner RESULTADOS", Toast.LENGTH_LONG).show();
-            }
-        });*/
-        /*--*/
         viewPager.setAdapter(fadapter);
-
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.appbartabs);
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
@@ -189,10 +178,21 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
             editor.commit();
         }
 
+        // Seteamos los valores de las preferencias ----------------------------------------
+        // Manejo de sqlite para extraer la LIGA y CATEGORÍA ----
+        proyectoDAO = new ProyectoDAO(ActividadPrincipal.this);
+        proyectoDAO.open();
+
+        Integer idLiga = proyectoDAO.getLiga();
+        if(idLiga == 0){ ligaSeleccionada = "Sin Liga";}
+        else { ligaSeleccionada = Liga.LIGAS_MOCK[idLiga-1].getNombre(); Toast.makeText(getBaseContext(), "Liga: "+ligaSeleccionada, Toast.LENGTH_SHORT).show();}
+
+        Integer idCategoria = proyectoDAO.getCategoría();
+        if(idCategoria == 0){ categoriaSeleccionada = "Sin Categoría";}
+        else { categoriaSeleccionada = Categoria.CATEGORIAS_MOCK[idCategoria-1].getNombre(); Toast.makeText(getBaseContext(), "Categoría: "+categoriaSeleccionada, Toast.LENGTH_SHORT).show();}
+
         nombreUsuario = prefs.getString("nombre_usuario","La Cholito");
         correoUsuario = prefs.getString("email_usuario","email@usuario.com");
-        ligaSeleccionada = "Liga de Veteranos";//setear con el valor de la BD de SQLite
-        categoriaSeleccionada = "Senior"; //setear con el valor de la BD de SQLite
 
         /*Seteamos Datos del usuario*/
         usuario.setNombre(nombreUsuario);
@@ -244,7 +244,7 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
         //Si selecciono AYUDA
         if (id == R.id.ayuda) {
             Toast.makeText(getBaseContext(), "Clickee AYUDA", Toast.LENGTH_LONG).show();
-            //Inicio la actividad que me va mas35 levantar el Preferencias.xml
+            //Inicio la actividad que me va a levantar el Preferencias.xml
             //  startActivity(new Intent(MainActivity.this,AyudaActivity.class));
             return true;
         }
@@ -297,8 +297,9 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
         return true;//Devuelve TRUE en caso de que fue usado y FALSO en caso contrario
     }
 
-    @Override
+    /*----------------------------------- on Back Pressed ----------------------------------------*/
     public void onBackPressed() {
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
@@ -319,15 +320,10 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
         Toast.makeText(this, "En Principal, spinner RESULTADOS", Toast.LENGTH_LONG).show();
     }
 */
-      /*-------------------------------------- On Pause --------------------------------------------*/
- /*   protected void onPause() {
+    /*-------------------------------------- On Pause --------------------------------------------*/
+    protected void onPause() {
         super.onPause();
         if(cursor!=null) cursor.close();
         if(proyectoDAO!=null) proyectoDAO.close();
     }
- */
-/*      @Override
-      public void onCorreoSeleccionado(String c) {
-          Toast.makeText(this, "Clickieeeeeeeeeeeee spinner RESULTADOS", Toast.LENGTH_LONG).show();
-      }
-*/}
+}
