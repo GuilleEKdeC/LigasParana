@@ -185,11 +185,11 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
 
         Integer idLiga = proyectoDAO.getLiga();
         if(idLiga == 0){ ligaSeleccionada = "Sin Liga";}
-        else { ligaSeleccionada = Liga.LIGAS_MOCK[idLiga-1].getNombre(); Toast.makeText(getBaseContext(), "Liga: "+ligaSeleccionada, Toast.LENGTH_SHORT).show();}
+        else { ligaSeleccionada = Liga.LIGAS_MOCK[idLiga-1].getNombre();}
 
         Integer idCategoria = proyectoDAO.getCategoría();
         if(idCategoria == 0){ categoriaSeleccionada = "Sin Categoría";}
-        else { categoriaSeleccionada = Categoria.CATEGORIAS_MOCK[idCategoria-1].getNombre(); Toast.makeText(getBaseContext(), "Categoría: "+categoriaSeleccionada, Toast.LENGTH_SHORT).show();}
+        else { categoriaSeleccionada = Categoria.CATEGORIAS_MOCK[idCategoria-1].getNombre();}
 
         nombreUsuario = prefs.getString("nombre_usuario","La Cholito");
         correoUsuario = prefs.getString("email_usuario","email@usuario.com");

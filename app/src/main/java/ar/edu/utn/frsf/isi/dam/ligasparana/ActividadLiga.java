@@ -33,7 +33,6 @@ public class ActividadLiga extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         setContentView(R.layout.o_2_actividad_ligas);
         contexto=getBaseContext();
 
@@ -62,10 +61,6 @@ public class ActividadLiga extends AppCompatActivity {
                 myDao = new ProyectoDAO(ActividadLiga.this);
                 myDao.open();
                 myDao.actualizarLiga(String.valueOf(listaLigas.get(position).getId()));
-                Cursor c = myDao.listaPreferencias();
-                if(c.moveToFirst()) {   //si hay filas en el cursor
-                    Toast.makeText(getBaseContext(), "Liga: "+c.getString(1)+" --- Categ: "+c.getString(2), Toast.LENGTH_LONG).show();
-                }
                 finish();
             }
         });

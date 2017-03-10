@@ -41,8 +41,6 @@ public class ActividadCategoria extends AppCompatActivity{
         // Manejo del Intent
         intentCategoria = getIntent();
         idLiga = intentCategoria.getStringExtra("idLiga");
-//Toast.makeText(this, nombreLiga, Toast.LENGTH_SHORT).show();
-        // Integer id = Integer.valueOf(categoria.getStringExtra("ID_Liga"));
         // Fin manejo del Intent
 
         contexto=getBaseContext();
@@ -72,22 +70,10 @@ public class ActividadCategoria extends AppCompatActivity{
                 myDao = new ProyectoDAO(ActividadCategoria.this);
                 myDao.open();
                 myDao.actualizarCategoria(String.valueOf(listaCategorias.get(position).getId()));
-
-                Cursor c = myDao.listaPreferencias();
-                if(c.moveToFirst()) {   //si hay filas en el cursor
-                   Toast.makeText(getBaseContext(), "Liga: "+c.getString(1)+" --- Categ: "+c.getString(2), Toast.LENGTH_LONG).show();
-                }
                 finish();
             }
         });
-
     }//Fin-On Create
-
-
-
-
-
-
 
     private void cargarListaDeCategorias() {
 
