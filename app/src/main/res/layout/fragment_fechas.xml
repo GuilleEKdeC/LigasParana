@@ -140,7 +140,7 @@
                 android:id="@+id/tv_fecha_fecha"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView"
+                android:text="Fechas..."
                 android:textAlignment="center"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="12sp" />

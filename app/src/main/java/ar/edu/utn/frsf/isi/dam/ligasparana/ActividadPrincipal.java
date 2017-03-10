@@ -254,7 +254,7 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
         }
         //Si selecciono AYUDA
         if (id == R.id.ayuda) {
-            Toast.makeText(getBaseContext(), "Clickee AYUDA", Toast.LENGTH_LONG).show();
+            Toast.makeText(getBaseContext(), "Ayuda: ¡Esta en Desarrollo!", Toast.LENGTH_LONG).show();
             //Inicio la actividad que me va a levantar el Preferencias.xml
             //  startActivity(new Intent(MainActivity.this,AyudaActivity.class));
             return true;
@@ -285,7 +285,7 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
                 startActivity(intActCat.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP));
                 break;
             case R.id.nav_equipo:
-                Toast.makeText(getBaseContext(), "Click Equipo", Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(), "Equipo: ¡Esta en Desarrollo!", Toast.LENGTH_LONG).show();
                 break;
             case R.id.nav_misPartidos:
                 Intent imP = new Intent(ActividadPrincipal.this,ActividadMisPartidos.class);
@@ -293,9 +293,9 @@ public class ActividadPrincipal extends AppCompatActivity implements NavigationV
                 break;
             case R.id.nav_localizar:
                 //Intent mapa = new Intent(ActividadPrincipal.this,Localizar.class);
-                Intent mapa = new Intent(ActividadPrincipal.this,ActividadMapas.class);
-                startActivity(mapa);
-                Toast.makeText(getBaseContext(), "Mi Posición: ¡Esta en Reparación!", Toast.LENGTH_LONG).show();
+                /*Intent mapa = new Intent(ActividadPrincipal.this,ActividadMapas.class);
+                startActivity(mapa);*/
+                Toast.makeText(getBaseContext(), "Localizar: ¡Esta en Desarrollo!", Toast.LENGTH_LONG).show();
                 break;
             case R.id.nav_perfil:
                 startActivity(new Intent(ActividadPrincipal.this,Opciones.class));

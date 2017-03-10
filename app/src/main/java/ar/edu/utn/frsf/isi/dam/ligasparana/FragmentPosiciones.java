@@ -42,9 +42,9 @@ public class FragmentPosiciones extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        v = inflater.inflate(R.layout.fragment_equipos, container, false);
+        v = inflater.inflate(R.layout.fragment_posiciones, container, false);
 
-        listVw = (ListView)v.findViewById(R.id.lv_equipos);
+        listVw = (ListView)v.findViewById(R.id.lv_posiciones);
         listaDePosiciones = new ArrayList<String>();
 
        // cargarListaDePosiciones();

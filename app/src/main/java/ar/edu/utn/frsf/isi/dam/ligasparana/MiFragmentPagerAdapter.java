@@ -14,7 +14,7 @@ import android.widget.Toast;
 public class MiFragmentPagerAdapter extends FragmentPagerAdapter /*implements FragmentResultados.OnArticuloSelectedListener*/{
 
 
-    final int PAGE_COUNT = 3;
+    final int PAGE_COUNT = 7;
 
     private Context c;
 //    private MiFragmentPagerAdapter.OnFragmentSelectedListener listenerFragment;
@@ -42,26 +42,18 @@ public class MiFragmentPagerAdapter extends FragmentPagerAdapter /*implements Fr
                 break;
             case 2:
                 f = FragmentResultados.newInstance();
-              /*  Spinner sp = (Spinner)f.getActivity().findViewById(R.id.sp_resultados);
-                sp.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Toast.makeText(c, "Clickieeeeeeeeeeeee spinner RESULTADOS", Toast.LENGTH_LONG).show();
-                    }
-                });*/
-             //   f.setCorreosListener();
                 break;
             case 3:
-               // f = FragmentPosiciones.newInstance();
+                f = FragmentPosiciones.newInstance();
                 break;
             case 4:
-               // f = FragmentGoleadores.newInstance();
+                f = FragmentGoleadores.newInstance();
                 break;
             case 5:
-               // f = FragmentArbitros.newInstance();
+                f = FragmentArbitros.newInstance();
                 break;
             case 6:
-                //f = FragmentEquipos.newInstance();
+                f = FragmentEquipos.newInstance();
                 break;
             case 7:
                 //f = FragmentTorneosAnteriores.newInstance();
